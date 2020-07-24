@@ -1,0 +1,10 @@
+{
+    "chocolate": {
+    "price": 2,
+    "amountLeft": 25
+    },
+    "vanilla": {
+        "price": 1,
+        "amountLeft": 16
+    }
+}

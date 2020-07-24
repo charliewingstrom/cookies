@@ -1,0 +1,21 @@
+{
+  "name": "websiteforshan",
+  "version": "1.0.0",
+  "description": "Server for shan's cookies website",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cookies",
+    "small",
+    "business"
+  ],
+  "author": "Charles Wingstrom",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security"
+  }
+}
