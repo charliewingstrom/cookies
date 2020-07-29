@@ -90,6 +90,9 @@ class App extends React.Component {
 		}
 		return body;
 	}
+	orderMe(amount, name) {
+		console.log(amount + " of " + name + " cookies ordered")
+	}
     render() {
 	  const { classes } = this.props;
 	  /*
@@ -140,7 +143,10 @@ class App extends React.Component {
 						<About/>
 					</Route>
 					<Route path="/">
-						<StoreFront cookies={ this.state.cookiesJSON }/>
+						<StoreFront 
+							cookies={ this.state.cookiesJSON }
+							orderMe ={(amount, name) => this.orderMe(amount, name) }
+						/>
 					</Route>
 				</Switch>
 			</Router>

@@ -1,9 +1,11 @@
 {
     "chocolate": {
+    "name": "Chocolate",
     "price": 2,
     "amountLeft": 25
     },
     "vanilla": {
+        "name": "Vanilla",
         "price": 1,
         "amountLeft": 16
     }
