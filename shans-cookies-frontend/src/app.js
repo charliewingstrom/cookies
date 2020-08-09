@@ -61,7 +61,8 @@ class App extends React.Component {
     	super();
     	this.state = {
 			  data: null,
-			  cookiesJSON: null
+			  cookiesJSON: null,
+			  cart: []
     	}
   	};
 	componentDidMount() {
@@ -90,24 +91,25 @@ class App extends React.Component {
 		}
 		return body;
 	}
+	// adds the amount of cookies to the cart state
 	orderMe(amount, name) {
+		var tmpCart = this.state.cart;
+		if (tmpCart[name]) {
+			tmpCart[name] += amount;
+		}
+		else {
+			tmpCart[name] = amount;
+		}
+		this.setState({
+			cart: tmpCart
+		})
 		console.log(amount + " of " + name + " cookies ordered")
+		console.log(typeof tmpCart)
 	}
     render() {
 	  const { classes } = this.props;
-	  /*
-	  if (this.state.cookiesJSON)
-	  {
-		var cookiesList = this.state.cookiesJSON;
-		for (var key in cookiesList) {
-			console.log("here's a cookie");
-			if (cookiesList.hasOwnProperty(key)) {
-			  console.log(key);
-			  console.log(cookiesList[key]);
-			}
-			}
-	  }
-	  */
+	  console.log(this.state.cart)
+
       return (
         <div className={classes.root}>
 			
@@ -146,6 +148,7 @@ class App extends React.Component {
 						<StoreFront 
 							cookies={ this.state.cookiesJSON }
 							orderMe ={(amount, name) => this.orderMe(amount, name) }
+							cart = {this.state.cart}
 						/>
 					</Route>
 				</Switch>
