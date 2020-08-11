@@ -29,21 +29,31 @@ app.post('/', urlencodedParser, (req, res, next) => {
   Object.keys(result).forEach(function(key) {
     inventoryArray.push(result[key]);
   })
-  console.log("Inventory: ")
-  for (var cookie in inventoryArray)
-  {
-    console.log(cookie + " Here is the cookie");
-    console.log(inventoryArray[cookie]);
-    console.log(inventoryArray[cookie]["amountLeft"]);
-  }
-
+  console.log(inventoryArray)
   console.log("Cart: ")
-  console.log(cartInput)
-  console.log(typeof cartInput)
+  var cartInputArray = cartInput.split(',')
+  for (var i = 0; i < cartInputArray.length; i+=2)
+  {
+    var cookieName = cartInputArray[i];
+    var cookieAmount = cartInputArray[i+1];
+    console.log("There were " + cartInputArray[i+1] + " cookies of type " + cartInputArray[i]);
+    for (var cookie in inventoryArray)
+      {
+        if (cookieName === inventoryArray[cookie]["name"]) {
+          inventoryArray[cookie]["amountLeft"] -= cookieAmount
+        }
+      }
+  }
+  console.log(inventoryArray)
   /*
   fs.writeFile('cookies.json', req.body.what, function(err) {
     if (err) return console.log(err);
   })*/
+  var myJsonString = JSON.stringify(inventoryArray);
+  console.log(myJsonString)
+  fs.writeFile('cookies.json', myJsonString, function(err) {
+    if (err) return console.log(err);
+  })
   res.send(req.body.cart)
   next();
 })
