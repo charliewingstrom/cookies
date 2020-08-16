@@ -15,7 +15,6 @@ function StoreFront(props) {
             <div className={'storeFront'}>
                 {
                     cookieArray.map((cookie, index) => (
-                        
                         <Cookie 
                             key={index}
                             name={cookie.name} 
@@ -26,6 +25,10 @@ function StoreFront(props) {
                         />
                     ))
                 }
+			<form id="myForm" method="POST">
+				<input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
+                <input type="submit" value="Submit" />
+			</form>
             </div>
         </div>
     )

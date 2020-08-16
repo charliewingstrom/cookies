@@ -12,7 +12,6 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
     Router,
-    Link,
     Switch,
     Route
   } from "react-router-dom";
@@ -21,7 +20,7 @@ import { createBrowserHistory } from "history";
 import StoreFront from './storeFront';
 import About from './about';
 import AddACookie from './addACookie';
-
+import Checkout from './checkout';
 const drawerWidth = 240;
 
 function HomeIcon(props) {
@@ -36,6 +35,7 @@ const useStyles = (theme) => ({
     display: 'flex',
   },
   appBar: {
+	display: 'flex',
     zIndex: theme.zIndex.drawer + 1,
 	background: '#00ccff',
 	color: '#000000'
@@ -61,29 +61,16 @@ class App extends React.Component {
   	constructor() {
     	super();
     	this.state = {
-			  data: null,
 			  cookiesJSON: null,
 			  cart: []
     	}
   	};
 	componentDidMount() {
-		this.callBackEndAPI()
-			.then(res => this.setState({ data: res.express }))
-			.catch(err => console.log(err));
-
 		this.getCookiesFromBackend()
 			.then(res => this.setState({cookiesJSON: res.cookies }))
 			.catch(err => console.log(err));
 	}
 
-	callBackEndAPI = async () => {
-		const response = await fetch('/express_backend');
-		const body = await response.json();
-		if (response.status !== 200) {
-			throw Error(body.message)
-		}
-		return body;
-	};
 	getCookiesFromBackend = async () => {
 		const response = await fetch('/cookies_backend');
 		const body = await response.json();
@@ -119,7 +106,7 @@ class App extends React.Component {
 					cookies={ this.state.cookiesJSON }
 					orderMe ={(amount, name) => this.orderMe(amount, name) }
 					cart = {this.state.cart}
-			/>
+				/>
 		  </Fragment>
 	  )
 	  const AboutPage = () => (
@@ -132,31 +119,23 @@ class App extends React.Component {
 			  <AddACookie/>
 		  </Fragment>
 	  )
+	  const CheckoutPage = () => (
+		  <Fragment>
+			  <Checkout
+			  	cart={this.state.cart}
+			  />
+		  </Fragment>
+	  )
       return (
-		 
-        <div className={classes.root}> {/* 
-			<Router history={customHistory}>
-				<main>
-					<nav>
-						<ul>
-							<li><a href="/">Home</a></li>
-							<li><a href="/about">About</a></li>
-							<li><a href="/addACookie">Add a Cookie</a></li>
-						</ul>
-					</nav>
-					<Route path="/addACookie" component={AddACookiePage}/>
-					<Route path="/about" component={AboutPage}/>
-					<Route path="/" exact component={HomePage}/>
-					
-				</main>
-			</Router>*/}
+        <div className={classes.root}> 
             <Router history={customHistory}>
               	<CssBaseline />
               	<AppBar position="fixed" className={classes.appBar}>
                   	<Toolbar>
-                      	<Typography variant="h6" noWrap>Shan's Cookies</Typography>
-						  <p>{this.state.data}</p>
+                      	<Typography variant="h6">Shan's Cookies</Typography>
+						<a href="/checkout"><Typography variant="h6">Checkout</Typography></a>
                   	</Toolbar>
+					  
               	</AppBar>
 				<Drawer className={classes.drawer} variant="permanent" classes={{paper: classes.drawerPaper,}}>
 					<Toolbar/>
@@ -184,8 +163,9 @@ class App extends React.Component {
 					</div>
 				</Drawer>
 				<Switch>
-					<Route path="/addACookie" component={AddACookiePage}/>
 					<Route path="/about" component={AboutPage}/>
+					<Route path="/addACookie" component={AddACookiePage}/>
+					<Route path="/checkout" component={CheckoutPage}/>
 					<Route path="/" exact component={HomePage}/>
 				</Switch>
 			</Router>
