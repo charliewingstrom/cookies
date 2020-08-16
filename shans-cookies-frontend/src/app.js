@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,6 +20,7 @@ import { createBrowserHistory } from "history";
 
 import StoreFront from './storeFront';
 import About from './about';
+import AddACookie from './addACookie';
 
 const drawerWidth = 240;
 
@@ -106,13 +107,49 @@ class App extends React.Component {
 		console.log(amount + " of " + name + " cookies ordered")
 		console.log(typeof tmpCart)
 	}
+
+	
     render() {
 	  const { classes } = this.props;
 	  console.log(this.state.cart)
-
+	
+	  const HomePage = () => (
+		    <Fragment>
+			    <StoreFront 
+					cookies={ this.state.cookiesJSON }
+					orderMe ={(amount, name) => this.orderMe(amount, name) }
+					cart = {this.state.cart}
+			/>
+		  </Fragment>
+	  )
+	  const AboutPage = () => (
+		  <Fragment>
+			  <About/>
+		  </Fragment>
+	  )
+	  const AddACookiePage = () => (
+		  <Fragment>
+			  <AddACookie/>
+		  </Fragment>
+	  )
       return (
-        <div className={classes.root}>
-			
+		 
+        <div className={classes.root}> {/* 
+			<Router history={customHistory}>
+				<main>
+					<nav>
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="/about">About</a></li>
+							<li><a href="/addACookie">Add a Cookie</a></li>
+						</ul>
+					</nav>
+					<Route path="/addACookie" component={AddACookiePage}/>
+					<Route path="/about" component={AboutPage}/>
+					<Route path="/" exact component={HomePage}/>
+					
+				</main>
+			</Router>*/}
             <Router history={customHistory}>
               	<CssBaseline />
               	<AppBar position="fixed" className={classes.appBar}>
@@ -125,32 +162,31 @@ class App extends React.Component {
 					<Toolbar/>
 					<div className={classes.drawerContainer}>
 						<List>
-						<Link to="/">
+						<a href="/">
 							<ListItem>
 								<ListItemIcon><HomeIcon/></ListItemIcon>
 								<ListItemText primary={"Home"}/>
 							</ListItem>
-						</Link>
-						<Link to="/about">
+						</a>
+						<a href="/about">
 							<ListItem>
 								<ListItemIcon></ListItemIcon>
 								<ListItemText primary={"About"}/>
 							</ListItem>
-						</Link>
+						</a>
+						<a href="/addACookie">
+							<ListItem>
+								<ListItemIcon></ListItemIcon>
+								<ListItemText primary={"Add a Cookie"}/>
+							</ListItem>
+						</a>
 						</List>
 					</div>
 				</Drawer>
 				<Switch>
-					<Route path="/about">
-						<About/>
-					</Route>
-					<Route path="/">
-						<StoreFront 
-							cookies={ this.state.cookiesJSON }
-							orderMe ={(amount, name) => this.orderMe(amount, name) }
-							cart = {this.state.cart}
-						/>
-					</Route>
+					<Route path="/addACookie" component={AddACookiePage}/>
+					<Route path="/about" component={AboutPage}/>
+					<Route path="/" exact component={HomePage}/>
 				</Switch>
 			</Router>
         </div>

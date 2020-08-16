@@ -1,12 +1,1 @@
-{
-    "chocolate": {
-    "name": "Chocolate",
-    "price": 2,
-    "amountLeft": 25
-    },
-    "vanilla": {
-        "name": "Vanilla",
-        "price": 1,
-        "amountLeft": 16
-    }
-}
+[{"name":"Chocolate","price":2,"amountLeft":15},{"name":"Vanilla","price":1,"amountLeft":8},{"name":"Peanut Butter","price":3,"amountLeft":29}]
