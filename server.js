@@ -10,11 +10,6 @@ const port = process.env.PORT || 5000;
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
-
 app.get('/cookies_backend', (req, res) => {
   let result = readFile();
   res.send({ cookies: result});
@@ -45,19 +40,36 @@ app.post('/', urlencodedParser, (req, res, next) => {
       }
   }
   console.log(inventoryArray)
-  /*
-  fs.writeFile('cookies.json', req.body.what, function(err) {
-    if (err) return console.log(err);
-  })*/
   var newInventory = JSON.stringify(inventoryArray);
   console.log(newInventory)
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
   })
-  res.send(req.body.cart)
-  next();
+  res.redirect('back')
 })
 
 app.post('/addACookie', urlencodedParser, (req, res, next) => {
   
+  console.log("Here is a post from addACookie")
+  console.log(req.body.cookieName)
+  console.log(req.body.price)
+  console.log(req.body.amount)
+  if (req.body.cookieName && req.body.price && req.body.amount) {
+    let result = readFile();
+    var inventoryArray = [];
+    Object.keys(result).forEach(function(key) {
+      inventoryArray.push(result[key]);
+    })
+
+    inventoryArray.push(
+      {"name":req.body.cookieName,
+      "price":Number(req.body.price),
+      "amountLeft":Number(req.body.amount)})
+    var newInventory = JSON.stringify(inventoryArray);
+    console.log(newInventory)
+    fs.writeFile('cookies.json', newInventory, function(err) {
+      if (err) return console.log(err);
+    })
+  }
+  res.redirect('back');
 })
