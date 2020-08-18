@@ -17,6 +17,7 @@ img {
     background-color: #ff3399;
     margin: 2ex;
     padding: 2em;
+    border-radius: 1ex;
 }
 .storeFront {
     display: flex;

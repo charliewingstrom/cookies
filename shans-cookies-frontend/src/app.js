@@ -21,6 +21,7 @@ import StoreFront from './storeFront';
 import About from './about';
 import AddACookie from './addACookie';
 import Checkout from './checkout';
+
 const drawerWidth = 240;
 
 function HomeIcon(props) {
@@ -63,7 +64,7 @@ class App extends React.Component {
     	this.state = {
 			  cookiesJSON: null,
 			  cart: []
-    	}
+		}
   	};
 	componentDidMount() {
 		this.getCookiesFromBackend()
@@ -91,8 +92,7 @@ class App extends React.Component {
 		this.setState({
 			cart: tmpCart
 		})
-		console.log(amount + " of " + name + " cookies ordered")
-		console.log(typeof tmpCart)
+		
 	}
 
 	
