@@ -1,6 +1,7 @@
 import React from 'react';
 import cookieURL from './cookie.jpg';
 import Cookie from './cookie.js';
+import Typography from '@material-ui/core/Typography';
 export default 
 function StoreFront(props) {
     if (props.cookies)
@@ -25,6 +26,18 @@ function StoreFront(props) {
                         />
                     ))
                 }
+            <form id="myForm" method="POST" className={'cookieListing'}>
+                <Typography>
+                    <p>Name: </p>
+                    <input name="name"/>
+                </Typography>
+                <Typography>
+                    <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
+                </Typography>
+                <Typography>
+                <input type="submit" value="Submit" />
+                </Typography>
+            </form>
             </div>
         </div>
     )

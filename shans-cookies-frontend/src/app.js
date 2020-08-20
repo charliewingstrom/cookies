@@ -19,8 +19,10 @@ import { createBrowserHistory } from "history";
 
 import StoreFront from './storeFront';
 import About from './about';
+import Error from './error';
 import AddACookie from './addACookie';
 import Checkout from './checkout';
+import UserInfo from './userInfo';
 
 const drawerWidth = 240;
 
@@ -63,8 +65,10 @@ class App extends React.Component {
     	super();
     	this.state = {
 			  cookiesJSON: null,
-			  cart: []
+			  cart: [],
+			  name: "someName"
 		}
+		UserInfo.userInfoConstruct();
   	};
 	componentDidMount() {
 		this.getCookiesFromBackend()
@@ -89,6 +93,7 @@ class App extends React.Component {
 		else {
 			tmpCart[name] = amount;
 		}
+		UserInfo.setCart(tmpCart);
 		this.setState({
 			cart: tmpCart
 		})
@@ -98,8 +103,9 @@ class App extends React.Component {
 	
     render() {
 	  const { classes } = this.props;
+	  console.log("name " + this.state.name)
+	  console.log("cart: ")
 	  console.log(this.state.cart)
-	
 	  const HomePage = () => (
 		    <Fragment>
 			    <StoreFront 
@@ -114,6 +120,11 @@ class App extends React.Component {
 			  <About/>
 		  </Fragment>
 	  )
+	  const ErrorPage = () => (
+		<Fragment>
+			<Error/>
+		</Fragment>
+	)
 	  const AddACookiePage = () => (
 		  <Fragment>
 			  <AddACookie/>
@@ -166,6 +177,7 @@ class App extends React.Component {
 					<Route path="/about" component={AboutPage}/>
 					<Route path="/addACookie" component={AddACookiePage}/>
 					<Route path="/checkout" component={CheckoutPage}/>
+					<Route path="/error" component={ErrorPage}/>
 					<Route path="/" exact component={HomePage}/>
 				</Switch>
 			</Router>

@@ -16,7 +16,7 @@ app.get('/cookies_backend', (req, res) => {
 })
 
 // updates the current inventory, removing the amount requested in the cart from the total
-app.post('/checkout', urlencodedParser, (req, res, next) => {
+app.post('/', urlencodedParser, (req, res, next) => {
   let cartInput = req.body.cart;
   let result = readFile();
 
@@ -35,7 +35,13 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
     for (var cookie in inventoryArray)
       {
         if (cookieName === inventoryArray[cookie]["name"]) {
-          inventoryArray[cookie]["amountLeft"] -= cookieAmount
+          // check to see if the user is requesting more cookies than are avaliable
+          if (cookieAmount <= inventoryArray[cookie]["amountLeft"]) {
+            inventoryArray[cookie]["amountLeft"] -= cookieAmount;
+          }
+          else {
+            res.redirect('/error');
+          }
         }
       }
   }

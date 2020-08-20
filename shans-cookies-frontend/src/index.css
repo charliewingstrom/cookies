@@ -15,9 +15,9 @@ img {
     color: white;
     font-size: large;
     background-color: #ff3399;
-    margin: 2ex;
-    padding: 2em;
-    border-radius: 1ex;
+    margin: 1ex;
+    padding: 1.5em;
+    border-radius: 0.5ex;
 }
 .storeFront {
     display: flex;
