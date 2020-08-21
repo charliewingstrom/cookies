@@ -32,6 +32,14 @@ function StoreFront(props) {
                     <input name="name"/>
                 </Typography>
                 <Typography>
+                    <p>Email: </p>
+                    <input name="email"/>
+                </Typography>
+                <Typography>
+                    <p>Phone Number: </p>
+                    <input name="phoneNumber"/>
+                </Typography>
+                <Typography>
                     <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
                 </Typography>
                 <Typography>

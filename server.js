@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import readFile from './readFile.js';
+import readInventory from './readInventory.js';
+import readOrders from './readOrders.js';
 import * as fs from 'fs';
 const app = express();
 
@@ -11,27 +12,35 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/cookies_backend', (req, res) => {
-  let result = readFile();
+  let result = readInventory();
   res.send({ cookies: result});
 })
 
 // updates the current inventory, removing the amount requested in the cart from the total
 app.post('/', urlencodedParser, (req, res, next) => {
   let cartInput = req.body.cart;
-  let result = readFile();
+  let name = req.body.name;
+  let email = req.body.email;
+  let phoneNumber = req.body.phoneNumber;
+
+  // make sure my data is valid
+  if (!name || !email || !phoneNumber) {
+    res.send("Please enter valid data next time !")
+  }
+
+  let result = readInventory();
 
   var inventoryArray = [];
   Object.keys(result).forEach(function(key) {
     inventoryArray.push(result[key]);
   })
-  console.log("Cart: ")
   var cartInputArray = cartInput.split(',')
   // removes the amount of cookies ordered from the inventory
   for (var i = 0; i < cartInputArray.length; i+=2)
   {
     var cookieName = cartInputArray[i];
     var cookieAmount = cartInputArray[i+1];
-    console.log("There were " + cartInputArray[i+1] + " cookies of type " + cartInputArray[i]);
+    cartInputArray[i+1] = Number(cartInputArray[i+1])
     for (var cookie in inventoryArray)
       {
         if (cookieName === inventoryArray[cookie]["name"]) {
@@ -45,23 +54,29 @@ app.post('/', urlencodedParser, (req, res, next) => {
         }
       }
   }
-  console.log(inventoryArray)
+  let order = {
+    "name":name,
+    "email":email,
+    "phoneNumber":phoneNumber,
+    "order":cartInputArray
+  }
+  let orderList = readOrders();
+  orderList.push(order);
+  fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
+    if (err) return console.log(err);
+  })
+
   var newInventory = JSON.stringify(inventoryArray);
-  console.log(newInventory)
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
   })
+
   res.redirect('back')
 })
 
 app.post('/addACookie', urlencodedParser, (req, res, next) => {
-  
-  console.log("Here is a post from addACookie")
-  console.log(req.body.cookieName)
-  console.log(req.body.price)
-  console.log(req.body.amount)
   if (req.body.cookieName && req.body.price && req.body.amount) {
-    let result = readFile();
+    let result = readInventory();
     var inventoryArray = [];
     Object.keys(result).forEach(function(key) {
       inventoryArray.push(result[key]);
