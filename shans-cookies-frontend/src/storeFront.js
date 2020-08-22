@@ -1,7 +1,6 @@
 import React from 'react';
 import cookieURL from './cookie.jpg';
 import Cookie from './cookie.js';
-import Typography from '@material-ui/core/Typography';
 export default 
 function StoreFront(props) {
     if (props.cookies)
@@ -13,6 +12,27 @@ function StoreFront(props) {
         })
     return (
         <div>
+            <div >
+            <form id="myForm" method="POST" className={'checkoutBar'}>
+                <div className={'cookieListing'}>
+                    <p>Name: </p>
+                    <input name="name"/>
+                </div>
+                <div className={'cookieListing'}>
+                    <p>Email: </p>
+                    <input name="email"/>
+                </div>
+                <div className={'cookieListing'}>
+                    <p>Phone Number: </p>
+                    <input name="phoneNumber"/>
+                </div >
+                <div className={'cookieListing'}>
+                    <p>Cart: </p>
+                    <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+            </div>
             <div className={'storeFront'}>
                 {
                     cookieArray.map((cookie, index) => (
@@ -26,7 +46,22 @@ function StoreFront(props) {
                         />
                     ))
                 }
-            <form id="myForm" method="POST" className={'cookieListing'}>
+            </div>
+            
+        </div>
+    )
+    }
+    else {
+        // cookies have not loaded yet
+        return (
+            <div className={'storeFront'}>
+                <h1>loading...</h1>
+            </div>
+        )
+    }
+}
+/*
+<form id="myForm" method="POST" className={'cookieListing'}>
                 <Typography>
                     <p>Name: </p>
                     <input name="name"/>
@@ -40,22 +75,10 @@ function StoreFront(props) {
                     <input name="phoneNumber"/>
                 </Typography>
                 <Typography>
+                    <p>Cart: </p>
                     <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
                 </Typography>
                 <Typography>
                 <input type="submit" value="Submit" />
                 </Typography>
-            </form>
-            </div>
-        </div>
-    )
-    }
-    else {
-        // cookies have not loaded yet
-        return (
-            <div className={'storeFront'}>
-                <h1>loading...</h1>
-            </div>
-        )
-    }
-}
+            </form>*/

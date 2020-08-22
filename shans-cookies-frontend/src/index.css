@@ -11,6 +11,26 @@ img {
     height:300px;
     width:300px;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.checkoutBar {
+    display: flex;
+    margin-top: 5em;
+    margin-left: 2em;
+    flex-wrap: wrap;
+    width:100%;
+}
 .cookieListing {
     color: white;
     font-size: large;
@@ -21,7 +41,6 @@ img {
 }
 .storeFront {
     display: flex;
-    margin-top: 6em;
     margin-left: 2em;
     flex-wrap: wrap;
     width:100%;
@@ -48,6 +67,9 @@ img {
 .content {
     flex-grow: 1;
     padding: 2em;
+}
+.numberInput {
+    width: 5em;
 }
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;

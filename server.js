@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import sendOrderConfirmation from './emails.js';
 import readInventory from './readInventory.js';
 import readOrders from './readOrders.js';
 import * as fs from 'fs';
@@ -60,6 +61,7 @@ app.post('/', urlencodedParser, (req, res, next) => {
     "phoneNumber":phoneNumber,
     "order":cartInputArray
   }
+  sendOrderConfirmation(order);
   let orderList = readOrders();
   orderList.push(order);
   fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
@@ -94,3 +96,7 @@ app.post('/addACookie', urlencodedParser, (req, res, next) => {
   }
   res.redirect('back');
 })
+
+var MailOrder = function(order) {
+
+}
