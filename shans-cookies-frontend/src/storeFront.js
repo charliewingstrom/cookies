@@ -42,7 +42,7 @@ function StoreFront(props) {
                             pictureSrc={cookieURL} 
                             price={cookie.price} 
                             amount={cookie.amountLeft}
-                            orderMe={(amount) => props.orderMe(amount,cookie.name)}
+                            orderMe={(amount) => props.orderMe(amount,cookie.name,cookie.price)}
                         />
                     ))
                 }
@@ -60,25 +60,3 @@ function StoreFront(props) {
         )
     }
 }
-/*
-<form id="myForm" method="POST" className={'cookieListing'}>
-                <Typography>
-                    <p>Name: </p>
-                    <input name="name"/>
-                </Typography>
-                <Typography>
-                    <p>Email: </p>
-                    <input name="email"/>
-                </Typography>
-                <Typography>
-                    <p>Phone Number: </p>
-                    <input name="phoneNumber"/>
-                </Typography>
-                <Typography>
-                    <p>Cart: </p>
-                    <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
-                </Typography>
-                <Typography>
-                <input type="submit" value="Submit" />
-                </Typography>
-            </form>*/

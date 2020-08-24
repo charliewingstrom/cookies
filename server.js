@@ -17,6 +17,12 @@ app.get('/cookies_backend', (req, res) => {
   res.send({ cookies: result});
 })
 
+// get the list of orders
+app.get('/get_orders', (req, res) => {
+  let result = readOrders();
+  res.send({orders: result});
+})
+
 // updates the current inventory, removing the amount requested in the cart from the total
 app.post('/', urlencodedParser, (req, res, next) => {
   let cartInput = req.body.cart;

@@ -23,7 +23,7 @@ import Error from './error';
 import AddACookie from './addACookie';
 import Checkout from './checkout';
 import UserInfo from './userInfo';
-
+import ViewOrders from './viewOrders';
 const drawerWidth = 240;
 
 function HomeIcon(props) {
@@ -65,14 +65,18 @@ class App extends React.Component {
     	super();
     	this.state = {
 			  cookiesJSON: null,
-			  cart: [],
-			  name: "someName"
+			  ordersJSON: null,
+			  cart: {"total" : 0}
 		}
 		UserInfo.userInfoConstruct();
   	};
 	componentDidMount() {
 		this.getCookiesFromBackend()
 			.then(res => this.setState({cookiesJSON: res.cookies }))
+			.catch(err => console.log(err));
+
+		this.getOrdersFromBackend()
+			.then(res => this.setState({ordersJSON: res.orders }))
 			.catch(err => console.log(err));
 	}
 
@@ -84,8 +88,19 @@ class App extends React.Component {
 		}
 		return body;
 	}
+
+	getOrdersFromBackend = async () => {
+		const response = await fetch('/get_orders');
+		const body = await response.json();
+		if (response.status !== 200) {
+			throw Error(body.message)
+		}
+		return body;
+	}
+
+
 	// adds the amount of cookies to the cart state
-	orderMe(amount, name) {
+	orderMe(amount, name, price) {
 		var tmpCart = this.state.cart;
 		if (tmpCart[name]) {
 			tmpCart[name] += amount;
@@ -93,6 +108,7 @@ class App extends React.Component {
 		else {
 			tmpCart[name] = amount;
 		}
+		tmpCart["total"] += price * amount
 		UserInfo.setCart(tmpCart);
 		this.setState({
 			cart: tmpCart
@@ -103,14 +119,11 @@ class App extends React.Component {
 	
     render() {
 	  const { classes } = this.props;
-	  console.log("name " + this.state.name)
-	  console.log("cart: ")
-	  console.log(this.state.cart)
 	  const HomePage = () => (
 		    <Fragment>
 			    <StoreFront 
 					cookies={ this.state.cookiesJSON }
-					orderMe ={(amount, name) => this.orderMe(amount, name) }
+					orderMe ={(amount, name, price) => this.orderMe(amount, name, price) }
 					cart = {this.state.cart}
 				/>
 		  </Fragment>
@@ -118,6 +131,13 @@ class App extends React.Component {
 	  const AboutPage = () => (
 		  <Fragment>
 			  <About/>
+		  </Fragment>
+	  )
+	  const OrdersPage = () => (
+		  <Fragment>
+			  <ViewOrders
+			  	orders = {this.state.ordersJSON}
+			  />
 		  </Fragment>
 	  )
 	  const ErrorPage = () => (
@@ -170,6 +190,12 @@ class App extends React.Component {
 								<ListItemText primary={"Add a Cookie"}/>
 							</ListItem>
 						</a>
+						<a href="/orders">
+							<ListItem>
+								<ListItemIcon></ListItemIcon>
+								<ListItemText primary={"View Orders"}/>
+							</ListItem>
+						</a>
 						</List>
 					</div>
 				</Drawer>
@@ -178,6 +204,7 @@ class App extends React.Component {
 					<Route path="/addACookie" component={AddACookiePage}/>
 					<Route path="/checkout" component={CheckoutPage}/>
 					<Route path="/error" component={ErrorPage}/>
+					<Route path="/orders" component={OrdersPage}/>
 					<Route path="/" exact component={HomePage}/>
 				</Switch>
 			</Router>
