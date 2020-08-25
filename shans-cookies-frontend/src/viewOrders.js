@@ -19,6 +19,8 @@ function viewOrders(props) {
                         email={order.email}
                         phoneNumber={order.phoneNumber}
                         order={order.order}
+                        total={order.total}
+                        timeOrdered={order.timeOfOrder}
                     />    
                 ))
                 }

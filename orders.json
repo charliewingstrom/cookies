@@ -1,1 +1,2 @@
-[{"name":"Charles Wingstrom","email":"charliewingstrom@yahoo.com","phoneNumber":"7777777777","order":["total",12,"Peanut Butter",4]}]
+[{"name":"Charles Wingstrom","email":"charliewingstrom@yahoo.com","phoneNumber":"7777777777","order":["Butter",2],"total":"4","timeOfOrder":"7/1 21:06"},
+{"name":"Charles Wingstrom","email":"charliewingstrom@yahoo.com","phoneNumber":"7777777777","order":["Butter",3],"total":"6","timeOfOrder":"7/1 21:07"}]

@@ -27,11 +27,17 @@ function StoreFront(props) {
                     <input name="phoneNumber"/>
                 </div >
                 <div className={'cookieListing'}>
+                    <p>Total</p>
+                    <input name="total" value={props.total} readOnly={true}/>
+                </div>
+                <div className={'cookieListing'}>
                     <p>Cart: </p>
                     <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
                     <input type="submit" value="Submit" />
                 </div>
+                <button onClick={props.clearCart}>Clear Cart</button>
             </form>
+            
             </div>
             <div className={'storeFront'}>
                 {

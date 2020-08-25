@@ -66,9 +66,11 @@ class App extends React.Component {
     	this.state = {
 			  cookiesJSON: null,
 			  ordersJSON: null,
-			  cart: {"total" : 0}
+			  cart: {},
+			  total: 0
 		}
-		UserInfo.userInfoConstruct();
+		//UserInfo.userInfoConstruct();
+		this.clearCart = this.clearCart.bind(this)
   	};
 	componentDidMount() {
 		this.getCookiesFromBackend()
@@ -108,14 +110,21 @@ class App extends React.Component {
 		else {
 			tmpCart[name] = amount;
 		}
-		tmpCart["total"] += price * amount
 		UserInfo.setCart(tmpCart);
+		var currTotal = this.state.total
 		this.setState({
-			cart: tmpCart
+			cart: tmpCart,
+			total: currTotal + price*amount
 		})
 		
 	}
 
+	clearCart() {
+		this.setState({
+			cart: {},
+			total: 0
+		})
+	}
 	
     render() {
 	  const { classes } = this.props;
@@ -125,6 +134,8 @@ class App extends React.Component {
 					cookies={ this.state.cookiesJSON }
 					orderMe ={(amount, name, price) => this.orderMe(amount, name, price) }
 					cart = {this.state.cart}
+					total = {this.state.total}
+					clearCart = {this.clearCart}
 				/>
 		  </Fragment>
 	  )

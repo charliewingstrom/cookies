@@ -29,10 +29,11 @@ app.post('/', urlencodedParser, (req, res, next) => {
   let name = req.body.name;
   let email = req.body.email;
   let phoneNumber = req.body.phoneNumber;
-
+  let total = req.body.total;
   // make sure my data is valid
-  if (!name || !email || !phoneNumber) {
-    res.send("Please enter valid data next time !")
+  if (!name || !email || !phoneNumber || cartInput === {}) {
+    res.redirect('/error')
+    return
   }
 
   let result = readInventory();
@@ -57,17 +58,22 @@ app.post('/', urlencodedParser, (req, res, next) => {
           }
           else {
             res.redirect('/error');
+            return;
           }
         }
       }
   }
+  var currDate = new Date()
+  const formattedDate = currDate.getMonth()+"/"+currDate.getDay()+" "+currDate.getHours()+":"+String(currDate.getMinutes()).padStart(2, '0')
   let order = {
     "name":name,
     "email":email,
     "phoneNumber":phoneNumber,
-    "order":cartInputArray
+    "order":cartInputArray,
+    "total": total,
+    "timeOfOrder": formattedDate
   }
-  sendOrderConfirmation(order);
+  //sendOrderConfirmation(order);
   let orderList = readOrders();
   orderList.push(order);
   fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
@@ -102,7 +108,3 @@ app.post('/addACookie', urlencodedParser, (req, res, next) => {
   }
   res.redirect('back');
 })
-
-var MailOrder = function(order) {
-
-}
