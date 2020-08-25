@@ -64,7 +64,7 @@ app.post('/', urlencodedParser, (req, res, next) => {
       }
   }
   var currDate = new Date()
-  const formattedDate = currDate.getMonth()+"/"+currDate.getDay()+" "+currDate.getHours()+":"+String(currDate.getMinutes()).padStart(2, '0')
+  const formattedDate = (currDate.getMonth()+1)+"/"+currDate.getDate()+" "+currDate.getHours()+":"+String(currDate.getMinutes()).padStart(2, '0')
   let order = {
     "name":name,
     "email":email,

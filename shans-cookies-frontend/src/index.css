@@ -24,6 +24,17 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.aboutPage {
+    width: 80%;
+    justify-content: center;
+}
+.appBar {
+    background-color: '#2E3B55'
+}
+.checkout {
+    margin-left: auto;
+    margin-right: 0;
+}
 .checkoutBar {
     display: flex;
     margin-top: 5em;
@@ -39,22 +50,9 @@ input[type=number] {
     padding: 1.5em;
     border-radius: 0.5ex;
 }
-.storeFront {
-    display: flex;
-    margin-top: 5em;
-    margin-left: 2em;
-    flex-wrap: wrap;
-    width:100%;
-}
-.aboutPage {
-    width: 80%;
-    justify-content: center;
-}
-.root {
-    display: 'flex';
-  }
-.appBar {
-    background-color: '#2E3B55'
+.content {
+    flex-grow: 1;
+    padding: 2em;
 }
 .drawer {
     width: drawerWidth;
@@ -65,10 +63,32 @@ input[type=number] {
 .drawerContainer {
     overflow: 'auto'
 }
-.content {
-    flex-grow: 1;
-    padding: 2em;
+.orderInner {
+    display: flex;
 }
+.order {
+    color: white;
+    font-size: large;
+    background-color: #ff3399;
+    margin: 1ex;
+    padding: 0.5em;
+    border-radius: 0.5ex;
+    flex-wrap: wrap;
+}
+.orderRightInfo {
+    margin-left:auto; 
+    margin-right:0;
+}
+.storeFront {
+    display: flex;
+    margin-top: 5em;
+    margin-left: 2em;
+    flex-wrap: wrap;
+    width:100%;
+}
+.root {
+    display: 'flex';
+  }
 .numberInput {
     width: 5em;
 }

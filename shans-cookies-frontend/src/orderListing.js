@@ -10,18 +10,19 @@ function OrderListing(props) {
         })
     }
     return (
-        <div className={"cookieListing"}>
-            <p>{props.name}</p>
-            <p>{props.email}</p>
-            <p>{props.phoneNumber}</p>
-            <p>Order:</p>
-            {
-            orderItems.map((order, index) => (
-                <p key={index}>- {order.name}: {order.amountOrdered}x</p>
-            ))
-            }
-            <p>Total: ${props.total}</p>
-            <p>Time Ordered: {props.timeOrdered}</p>
+        <div className={"order"}>
+        	<p>{props.name}		|	{props.email}    |   {props.phoneNumber}</p>
+			<div className={"orderInner"}>
+				<p>{
+				orderItems.map((order, index) => (
+					<div key={index}>- {order.name}: {order.amountOrdered}x</div>
+				))
+				}</p>
+				<div className={"orderRightInfo"}>
+					<p>Total: ${props.total}</p>
+					<p>{props.timeOrdered}</p>
+				</div>
+			</div>
         </div>
     )
 }

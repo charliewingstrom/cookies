@@ -175,7 +175,7 @@ class App extends React.Component {
               	<AppBar position="fixed" className={classes.appBar}>
                   	<Toolbar>
                       	<Typography variant="h6">Shan's Cookies</Typography>
-						<a href="/checkout"><Typography variant="h6">Checkout</Typography></a>
+						<a href="/checkout" className={"checkout"}><Typography variant="h6">Checkout</Typography></a>
                   	</Toolbar>
 					  
               	</AppBar>
