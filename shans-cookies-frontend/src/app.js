@@ -110,13 +110,11 @@ class App extends React.Component {
 		else {
 			tmpCart[name] = amount;
 		}
-		UserInfo.setCart(tmpCart);
 		var currTotal = this.state.total
 		this.setState({
 			cart: tmpCart,
 			total: currTotal + price*amount
 		})
-		
 	}
 
 	clearCart() {

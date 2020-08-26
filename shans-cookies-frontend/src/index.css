@@ -74,6 +74,7 @@ input[type=number] {
     padding: 0.5em;
     border-radius: 0.5ex;
     flex-wrap: wrap;
+    
 }
 .orderRightInfo {
     margin-left:auto; 

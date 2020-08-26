@@ -13,11 +13,11 @@ function OrderListing(props) {
         <div className={"order"}>
         	<p>{props.name}		|	{props.email}    |   {props.phoneNumber}</p>
 			<div className={"orderInner"}>
-				<p>{
+				<div>{
 				orderItems.map((order, index) => (
 					<div key={index}>- {order.name}: {order.amountOrdered}x</div>
 				))
-				}</p>
+				}</div>
 				<div className={"orderRightInfo"}>
 					<p>Total: ${props.total}</p>
 					<p>{props.timeOrdered}</p>

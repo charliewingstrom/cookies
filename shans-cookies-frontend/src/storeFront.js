@@ -11,7 +11,7 @@ function StoreFront(props) {
             cookieArray.push(props.cookies[key]);
         })
     return (
-        <div>
+        <div>{/* 
             <div >
             <form id="myForm" method="POST" className={'checkoutBar'}>
                 <div className={'cookieListing'}>
@@ -38,7 +38,7 @@ function StoreFront(props) {
                 <button onClick={props.clearCart}>Clear Cart</button>
             </form>
             
-            </div>
+            </div>*/}
             <div className={'storeFront'}>
                 {
                     cookieArray.map((cookie, index) => (
