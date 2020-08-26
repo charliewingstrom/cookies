@@ -24,7 +24,7 @@ app.get('/get_orders', (req, res) => {
 })
 
 // updates the current inventory, removing the amount requested in the cart from the total
-app.post('/', urlencodedParser, (req, res, next) => {
+app.post('/checkout', urlencodedParser, (req, res, next) => {
   let cartInput = req.body.cart;
   let name = req.body.name;
   let email = req.body.email;

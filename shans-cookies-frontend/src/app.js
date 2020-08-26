@@ -66,13 +66,10 @@ class App extends React.Component {
     	this.state = {
 			  cookiesJSON: null,
 			  ordersJSON: null,
-			  cart: {},
-			  total: 0
 		}
-		//UserInfo.userInfoConstruct();
-		this.clearCart = this.clearCart.bind(this)
   	};
 	componentDidMount() {
+		
 		this.getCookiesFromBackend()
 			.then(res => this.setState({cookiesJSON: res.cookies }))
 			.catch(err => console.log(err));
@@ -103,37 +100,34 @@ class App extends React.Component {
 
 	// adds the amount of cookies to the cart state
 	orderMe(amount, name, price) {
-		var tmpCart = this.state.cart;
+		var tmpCart = UserInfo.getCart();
 		if (tmpCart[name]) {
 			tmpCart[name] += amount;
 		}
 		else {
 			tmpCart[name] = amount;
 		}
-		var currTotal = this.state.total
-		this.setState({
-			cart: tmpCart,
-			total: currTotal + price*amount
-		})
+		var currTotal = UserInfo.getTotal() + price*amount
+		UserInfo.setCart(tmpCart);
+		UserInfo.setTotal(currTotal)
 	}
 
 	clearCart() {
-		this.setState({
-			cart: {},
-			total: 0
-		})
-	}
-	
+		/*
+		UserInfo.setCart({})
+		UserInfo.setTotal(0);
+	*/}
     render() {
-	  const { classes } = this.props;
-	  const HomePage = () => (
+		console.log(UserInfo.getCart());
+		console.log(UserInfo.getTotal());
+		const { classes } = this.props;
+		const HomePage = () => (
 		    <Fragment>
 			    <StoreFront 
 					cookies={ this.state.cookiesJSON }
 					orderMe ={(amount, name, price) => this.orderMe(amount, name, price) }
-					cart = {this.state.cart}
-					total = {this.state.total}
-					clearCart = {this.clearCart}
+					cart = {UserInfo.getCart()}
+					total = {UserInfo.getTotal()}
 				/>
 		  </Fragment>
 	  )
@@ -162,7 +156,9 @@ class App extends React.Component {
 	  const CheckoutPage = () => (
 		  <Fragment>
 			  <Checkout
-			  	cart={this.state.cart}
+				  cart={UserInfo.getCart()}
+				  total={UserInfo.getTotal()}
+				  clearCart={this.clearCart()}
 			  />
 		  </Fragment>
 	  )
@@ -173,6 +169,7 @@ class App extends React.Component {
               	<AppBar position="fixed" className={classes.appBar}>
                   	<Toolbar>
                       	<Typography variant="h6">Shan's Cookies</Typography>
+						  <button onClick={this.clearCart}>Clear Cart</button>
 						<a href="/checkout" className={"checkout"}><Typography variant="h6">Checkout</Typography></a>
                   	</Toolbar>
 					  

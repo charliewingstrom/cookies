@@ -1,35 +1,34 @@
-import Cookies from 'universal-cookie';
-var UserInfo = (function() {
-    const cookies = new Cookies();
 
-    var userInfoConstruct = function() {
-        cookies.set('email', 'some email', {path: '/'});
-        cookies.set('cart', [], {path: '/'});
-    }
+var UserInfo = (function() {
+
     var getEmail = function() {
-        // Or pull this from cookie/localStorage
-        return cookies.get('email');
+        sessionStorage.getItem("email")
     };
   
     var setEmail = function(inputEmail) {
-        cookies.set('email', inputEmail, {path: '/'});
         // Also set this in cookie/localStorage
+        sessionStorage.setItem("email", inputEmail)
     };
 
     var getCart = function() {
-        return cookies.get('cart');
+        return JSON.parse(sessionStorage.getItem("cart"))
     }
     var setCart = function(inputCart) {
-        cookies.set('cart', inputCart, {path: '/'});
-        console.log("Input Cart: ")
-        console.log(cookies.get('cart'))
+        sessionStorage.setItem("cart", JSON.stringify(inputCart))
+    }
+    var getTotal = function() {
+        return Number(sessionStorage.getItem("total"))
+    }
+    var setTotal = function(total) {
+        sessionStorage.setItem("total", total)
     }
     return {
-        userInfoConstruct: userInfoConstruct,
         getEmail: getEmail,
         setEmail: setEmail,
         getCart: getCart,
         setCart: setCart,
+        getTotal: getTotal,
+        setTotal: setTotal,
     }
   
   })();
