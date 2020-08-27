@@ -1,13 +1,20 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
+import React, { Fragment } from 'react';
 
 export default
 function checkout(props) {
     return (
-        <div className={'storeFront aboutPage'}>
-            <Typography variant="h6">
-                Here is your cart
-            <div >
+        <div>
+            <div className={'cartStorefront'}>
+            {
+                Object.entries(props.cart)
+                .map( ([key, value]) => <p className={"cartItem"}>{key}: {value}</p> )
+              
+            }
+            <p className={"total"}>Total: ${props.total}</p>
+            <div onClick={()=>props.clearCart()}>
+            <p className={"total"} >Clear Cart</p>
+            </div>
+            </div>
             <form id="myForm" method="POST" className={'checkoutBar'}>
                 <div className={'cookieListing'}>
                     <p>Name: </p>
@@ -21,20 +28,12 @@ function checkout(props) {
                     <p>Phone Number: </p>
                     <input name="phoneNumber"/>
                 </div >
-                <div className={'cookieListing'}>
-                    <p>Total</p>
-                    <input name="total" value={props.total} readOnly={true}/>
+                    <input type="hidden" name="total" value={props.total} readOnly={true}/>
+                <div>
+                    <input name="cart" type="hidden" value={Object.entries(props.cart)} readOnly={true}/>
+                    <input type="submit" value="Submit" onSubmit={() => props.clearCart()}/>
                 </div>
-                <div className={'cookieListing'}>
-                    <p>Cart: </p>
-                    <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
-                    <input type="submit" value="Submit" />
-                </div>
-                
             </form>
-            </div>
-            </Typography>
-            
         </div>
     )
 }

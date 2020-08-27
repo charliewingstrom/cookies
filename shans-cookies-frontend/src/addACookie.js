@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 export default
 function addACookie() {
     return (
-        <div className={'storeFront'}>
+        <div className={'page'}>
             <div className={'cookieListing'}>
                 <Typography variant="h6">
                     Here is where you can add a cookie to the store.

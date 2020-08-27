@@ -8,8 +8,8 @@ body {
     background-color: aqua;
 }
 img {
-    height:300px;
-    width:300px;
+    height:250px;
+    width:250px;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -31,16 +31,43 @@ input[type=number] {
 .appBar {
     background-color: '#2E3B55'
 }
+.cartHeader {
+    margin-top: 5em;
+    margin-left: 2em;
+}
+.cartStorefront {
+    margin: 1ex;
+    margin-top: 5em;
+    color: white;
+    font-size: large;
+    background-color: #ff3399;
+    border-radius: 0.5ex;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+}
+.cartItem {
+    margin-right: 1em;
+    margin-left: 1em;
+    font-size: larger;
+}
 .checkout {
     margin-left: auto;
     margin-right: 0;
 }
 .checkoutBar {
     display: flex;
-    margin-top: 5em;
     margin-left: 2em;
     flex-wrap: wrap;
     width:100%;
+}
+.clearCart {
+    margin-right: 1em;
+    margin-left: auto;
+    font-size: larger;
+    background-color: #00ccff;
+    border-radius: 1em;
+    height: 2em;
 }
 .cookieListing {
     color: white;
@@ -80,12 +107,22 @@ input[type=number] {
     margin-left:auto; 
     margin-right:0;
 }
-.storeFront {
-    display: flex;
+.page {
     margin-top: 5em;
     margin-left: 2em;
+    display: flex;
     flex-wrap: wrap;
     width:100%;
+}
+.storeFront {
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+}
+.total {
+    margin-right: 1em;
+    margin-left: auto;
+    font-size: larger;
 }
 .root {
     display: 'flex';

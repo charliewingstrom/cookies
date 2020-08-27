@@ -11,36 +11,19 @@ function StoreFront(props) {
             cookieArray.push(props.cookies[key]);
         })
     return (
-        <div>{/* 
-            <div >
-            <form id="myForm" method="POST" className={'checkoutBar'}>
-                <div className={'cookieListing'}>
-                    <p>Name: </p>
-                    <input name="name"/>
-                </div>
-                <div className={'cookieListing'}>
-                    <p>Email: </p>
-                    <input name="email"/>
-                </div>
-                <div className={'cookieListing'}>
-                    <p>Phone Number: </p>
-                    <input name="phoneNumber"/>
-                </div >
-                <div className={'cookieListing'}>
-                    <p>Total</p>
-                    <input name="total" value={props.total} readOnly={true}/>
-                </div>
-                <div className={'cookieListing'}>
-                    <p>Cart: </p>
-                    <input name="cart" value={Object.entries(props.cart)} readOnly={true}/>
-                    <input type="submit" value="Submit" />
-                </div>
-                <button onClick={props.clearCart}>Clear Cart</button>
-            </form>
-            
-            </div>*/}
-            <div className={'storeFront'}>
-                {
+        <div>
+            <div className={'cartStorefront'}>
+            {
+                Object.entries(props.cart)
+                .map( ([key, value]) => <p className={"cartItem"}>{key}: {value}</p> )
+              
+            }
+            <p className={"total"}>Total: ${props.total}</p>
+            <div onClick={()=>props.clearCart()}>
+            <p className={"total"} >Clear Cart</p>
+            </div>
+            </div>
+            <div className={'storeFront'}>{
                     cookieArray.map((cookie, index) => (
                         <Cookie 
                             key={index}
@@ -51,17 +34,15 @@ function StoreFront(props) {
                             orderMe={(amount) => props.orderMe(amount,cookie.name,cookie.price)}
                         />
                     ))
-                }
-            </div>
-            
+            }</div>
         </div>
     )
     }
     else {
         // cookies have not loaded yet
         return (
-            <div className={'storeFront'}>
-                <h1>loading...</h1>
+            <div className={'page aboutPage'}>
+                <h1>Loading...</h1>
             </div>
         )
     }

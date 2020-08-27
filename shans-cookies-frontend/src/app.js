@@ -67,7 +67,8 @@ class App extends React.Component {
 			  cookiesJSON: null,
 			  ordersJSON: null,
 		}
-  	};
+		this.clearCart = this.clearCart.bind(this)
+	};
 	componentDidMount() {
 		
 		this.getCookiesFromBackend()
@@ -110,16 +111,19 @@ class App extends React.Component {
 		var currTotal = UserInfo.getTotal() + price*amount
 		UserInfo.setCart(tmpCart);
 		UserInfo.setTotal(currTotal)
+		this.forceUpdate()
 	}
 
 	clearCart() {
-		/*
 		UserInfo.setCart({})
-		UserInfo.setTotal(0);
-	*/}
+		UserInfo.setTotal(0)
+		this.forceUpdate()
+	}
     render() {
-		console.log(UserInfo.getCart());
-		console.log(UserInfo.getTotal());
+		if (!UserInfo.getCart())
+		{
+			UserInfo.setCart({})
+		}
 		const { classes } = this.props;
 		const HomePage = () => (
 		    <Fragment>
@@ -128,6 +132,7 @@ class App extends React.Component {
 					orderMe ={(amount, name, price) => this.orderMe(amount, name, price) }
 					cart = {UserInfo.getCart()}
 					total = {UserInfo.getTotal()}
+					clearCart={this.clearCart}
 				/>
 		  </Fragment>
 	  )
@@ -158,7 +163,7 @@ class App extends React.Component {
 			  <Checkout
 				  cart={UserInfo.getCart()}
 				  total={UserInfo.getTotal()}
-				  clearCart={this.clearCart()}
+				  clearCart={this.clearCart}
 			  />
 		  </Fragment>
 	  )
@@ -169,7 +174,6 @@ class App extends React.Component {
               	<AppBar position="fixed" className={classes.appBar}>
                   	<Toolbar>
                       	<Typography variant="h6">Shan's Cookies</Typography>
-						  <button onClick={this.clearCart}>Clear Cart</button>
 						<a href="/checkout" className={"checkout"}><Typography variant="h6">Checkout</Typography></a>
                   	</Toolbar>
 					  

@@ -10,7 +10,7 @@ function viewOrders(props) {
             orderArray.push(props.orders[key]);
         })
         return (
-            <div className={"storeFront aboutPage"}>
+            <div className={"page aboutPage"}>
                 {
                 orderArray.map((order, index) => (
                     <OrderListing
