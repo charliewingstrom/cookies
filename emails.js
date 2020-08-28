@@ -1,19 +1,19 @@
 import nodemailer from 'nodemailer';
 
 var transporter = nodemailer.createTransport({
-  service: 'yahoo',
+  service: 'gmail',
   auth: {
-    user: 'charliewingstrom@yahoo.com',
-    pass: 'dontpushyourpassword'
+    user: `charliewingstrom@gmail.com`,
+    pass: `DontPushYourPassword`
   }
 });
 
 export default function sendOrderConfirmation(order) {
     var mailOptions = {
-        from: 'charliewingstrom@yahoo.com',
+        from: `charliewingstrom@gmail.com`,
         to: order["email"],
         subject: "Shan's Cookies - Order Confirmation",
-        text: 'That was easy! ' + "you ordered " + order["order"] 
+        text: "You ordered " + order["order"] 
       };
       
       transporter.sendMail(mailOptions, function(error, info){

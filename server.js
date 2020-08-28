@@ -31,19 +31,21 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
   let phoneNumber = req.body.phoneNumber;
   let total = req.body.total;
   // make sure my data is valid
-  if (!name || !email || !phoneNumber || cartInput === {}) {
+  if (!name || !email || !phoneNumber || cartInput === '') {
     res.redirect('/error')
     return
   }
 
+  // get the current inventory 
   let result = readInventory();
-
   var inventoryArray = [];
   Object.keys(result).forEach(function(key) {
     inventoryArray.push(result[key]);
   })
-  var cartInputArray = cartInput.split(',')
+  
   // removes the amount of cookies ordered from the inventory
+  // recreates a dictionary from the string provided from cartInput
+  var cartInputArray = cartInput.split(',')
   for (var i = 0; i < cartInputArray.length; i+=2)
   {
     var cookieName = cartInputArray[i];
@@ -63,6 +65,8 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
         }
       }
   }
+
+  // add the order to orders.json
   var currDate = new Date()
   const formattedDate = (currDate.getMonth()+1)+"/"+currDate.getDate()+" "+currDate.getHours()+":"+String(currDate.getMinutes()).padStart(2, '0')
   let order = {
@@ -73,7 +77,7 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
     "total": total,
     "timeOfOrder": formattedDate
   }
-  //sendOrderConfirmation(order);
+  sendOrderConfirmation(order);
   let orderList = readOrders();
   orderList.push(order);
   fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {

@@ -16,7 +16,7 @@ function Cookie(props) {
     else {
         amount =
             <div> 
-            <p><strong>{props.amount}</strong> remaining</p>
+            <p><strong>{props.amount}</strong> Remaining</p>
             <form>
                 <input 
                     className={"numberInput"}
@@ -31,7 +31,7 @@ function Cookie(props) {
             <div className={"cookieListing"} key={props.index}>
                 <img src={props.pictureSrc} alt="Cookie"></img>
                 <h3>{props.name}</h3>
-                <h3><strong>${props.price}</strong> / each</h3>
+                <h3><strong>${props.price}</strong> / Each</h3>
                 {amount}
             </div>
         )
