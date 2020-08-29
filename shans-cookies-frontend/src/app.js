@@ -19,9 +19,10 @@ import { createBrowserHistory } from "history";
 
 import StoreFront from './storeFront';
 import About from './about';
-import Error from './error';
-import AddACookie from './addACookie';
 import Checkout from './checkout';
+import Error from './error';
+import Login from './login';
+import AddACookie from './addACookie';
 import UserInfo from './userInfo';
 import ViewOrders from './viewOrders';
 const drawerWidth = 240;
@@ -108,9 +109,9 @@ class App extends React.Component {
 		else {
 			tmpCart[name] = amount;
 		}
-		var currTotal = UserInfo.getTotal() + price*amount
+		//var currTotal = UserInfo.getTotal() + price*amount
 		UserInfo.setCart(tmpCart);
-		UserInfo.setTotal(currTotal)
+		UserInfo.setTotal(UserInfo.getTotal() + price*amount)
 		this.forceUpdate()
 	}
 
@@ -119,9 +120,9 @@ class App extends React.Component {
 		UserInfo.setTotal(0)
 		this.forceUpdate()
 	}
+
     render() {
-		if (!UserInfo.getCart())
-		{
+		if (!UserInfo.getCart()) {
 			UserInfo.setCart({})
 		}
 		const { classes } = this.props;
@@ -135,91 +136,119 @@ class App extends React.Component {
 					clearCart={this.clearCart}
 				/>
 		  </Fragment>
-	  )
-	  const AboutPage = () => (
-		  <Fragment>
-			  <About/>
-		  </Fragment>
-	  )
-	  const OrdersPage = () => (
-		  <Fragment>
-			  <ViewOrders
-			  	orders = {this.state.ordersJSON}
-			  />
-		  </Fragment>
-	  )
-	  const ErrorPage = () => (
-		<Fragment>
-			<Error/>
-		</Fragment>
-	)
-	  const AddACookiePage = () => (
-		  <Fragment>
-			  <AddACookie/>
-		  </Fragment>
-	  )
-	  const CheckoutPage = () => (
-		  <Fragment>
-			  <Checkout
-				  cart={UserInfo.getCart()}
-				  total={UserInfo.getTotal()}
-				  clearCart={this.clearCart}
-			  />
-		  </Fragment>
-	  )
-      return (
-        <div className={classes.root}> 
-            <Router history={customHistory}>
-              	<CssBaseline />
-              	<AppBar position="fixed" className={classes.appBar}>
-                  	<Toolbar>
-                      	<Typography variant="h6">Shan's Cookies</Typography>
-						<a href="/checkout" className={"checkout"}><Typography variant="h6">Checkout</Typography></a>
-                  	</Toolbar>
-					  
-              	</AppBar>
-				<Drawer className={classes.drawer} variant="permanent" classes={{paper: classes.drawerPaper,}}>
-					<Toolbar/>
-					<div className={classes.drawerContainer}>
-						<List>
-						<a href="/">
+	  	)
+		const AboutPage = () => (
+			<Fragment>
+				<About/>
+			</Fragment>
+		)
+		const OrdersPage = () => (
+			<Fragment>
+				<ViewOrders
+					orders = {this.state.ordersJSON}
+					loggedIn = {UserInfo.getLogin()}
+				/>
+			</Fragment>
+		)
+		const ErrorPage = () => (
+			<Fragment>
+				<Error/>
+			</Fragment>
+		)
+		const LoginPage = () => (
+			<Fragment>
+				<Login 
+					setLogin={() => UserInfo.loggedIn()}
+					loggedIn={UserInfo.getLogin()}
+					refresh={() => this.forceUpdate()}
+				/>
+			</Fragment>
+		)
+		const AddACookiePage = () => (
+			<Fragment>
+				<AddACookie
+					loggedIn = {UserInfo.getLogin()}
+				/>
+			</Fragment>
+		)
+		const CheckoutPage = () => (
+			<Fragment>
+				<Checkout
+					cart={UserInfo.getCart()}
+					total={UserInfo.getTotal()}
+					clearCart={this.clearCart}
+				/>
+			</Fragment>
+		)
+		var IfLoggedIn;
+		
+		if (UserInfo.getLogin()) {
+			IfLoggedIn = (
+				<Fragment>
+					<a href="/addACookie">
+						<ListItem>
+							<ListItemIcon></ListItemIcon>
+							<ListItemText primary={"Add a Cookie"}/>
+						</ListItem>
+					</a>
+					<a href="/orders">
+						<ListItem>
+							<ListItemIcon></ListItemIcon>
+							<ListItemText primary={"View Orders"}/>
+						</ListItem>
+					</a>
+				</Fragment>
+			)
+		}
+		return (
+			<div className={classes.root}> 
+				<Router history={customHistory}>
+					<CssBaseline />
+					<AppBar position="fixed" className={classes.appBar}>
+						<Toolbar>
+							<Typography variant="h6">Shan's Cookies</Typography>
+							<a href="/checkout" className={"checkout"}><Typography variant="h6">Checkout</Typography></a>
+						</Toolbar>
+						
+					</AppBar>
+					<Drawer className={classes.drawer} variant="permanent" classes={{paper: classes.drawerPaper,}}>
+						<Toolbar/>
+						<div className={classes.drawerContainer}>
+							<List>
+							<a href="/">
+								<ListItem>
+									<ListItemIcon><HomeIcon/></ListItemIcon>
+									<ListItemText primary={"Home"}/>
+								</ListItem>
+							</a>
+							<a href="/about">
+								<ListItem>
+									<ListItemIcon></ListItemIcon>
+									<ListItemText primary={"About"}/>
+								</ListItem>
+							</a>
+							<a href="/login">
 							<ListItem>
-								<ListItemIcon><HomeIcon/></ListItemIcon>
-								<ListItemText primary={"Home"}/>
-							</ListItem>
-						</a>
-						<a href="/about">
-							<ListItem>
-								<ListItemIcon></ListItemIcon>
-								<ListItemText primary={"About"}/>
-							</ListItem>
-						</a>
-						<a href="/addACookie">
-							<ListItem>
-								<ListItemIcon></ListItemIcon>
-								<ListItemText primary={"Add a Cookie"}/>
-							</ListItem>
-						</a>
-						<a href="/orders">
-							<ListItem>
-								<ListItemIcon></ListItemIcon>
-								<ListItemText primary={"View Orders"}/>
-							</ListItem>
-						</a>
-						</List>
-					</div>
-				</Drawer>
-				<Switch>
-					<Route path="/about" component={AboutPage}/>
-					<Route path="/addACookie" component={AddACookiePage}/>
-					<Route path="/checkout" component={CheckoutPage}/>
-					<Route path="/error" component={ErrorPage}/>
-					<Route path="/orders" component={OrdersPage}/>
-					<Route path="/" exact component={HomePage}/>
-				</Switch>
-			</Router>
-        </div>
-        );
+									<ListItemIcon></ListItemIcon>
+									<ListItemText primary={"Admin Login"}/>
+								</ListItem>
+							</a>
+							{ IfLoggedIn }
+							</List>
+						</div>
+					</Drawer>
+					<Switch>
+						<Route path="/about" component={AboutPage}/>
+						<Route path="/addACookie" component={AddACookiePage}/>
+						<Route path="/checkout" component={CheckoutPage}/>
+						<Route path="/error" component={ErrorPage}/>
+						<Route path="/login" component={LoginPage}/>
+						<Route path="/orders" component={OrdersPage}/>
+						<Route path="/" exact component={HomePage}/>
+					</Switch>
+				</Router>
+			</div>
+			);
     }
   }
 export default withStyles(useStyles, {withTheme: true })(App);

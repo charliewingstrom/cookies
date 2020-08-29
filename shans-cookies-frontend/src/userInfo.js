@@ -22,6 +22,12 @@ var UserInfo = (function() {
     var setTotal = function(total) {
         sessionStorage.setItem("total", total)
     }
+    var getLogin = function() {
+        return sessionStorage.getItem("login")
+    }
+    var loggedIn = function() {
+        return sessionStorage.setItem("login", true)
+    }
     return {
         getEmail: getEmail,
         setEmail: setEmail,
@@ -29,6 +35,8 @@ var UserInfo = (function() {
         setCart: setCart,
         getTotal: getTotal,
         setTotal: setTotal,
+        getLogin: getLogin,
+        loggedIn: loggedIn,
     }
   
   })();

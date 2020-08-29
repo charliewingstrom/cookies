@@ -4,12 +4,16 @@ import sendOrderConfirmation from './emails.js';
 import readInventory from './readInventory.js';
 import readOrders from './readOrders.js';
 import * as fs from 'fs';
+import cors from 'cors';
+
 const app = express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.use(express.urlencoded({extended: true}));
+app.use(express.json())
 const port = process.env.PORT || 5000;
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
-// console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/cookies_backend', (req, res) => {
@@ -77,7 +81,7 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
     "total": total,
     "timeOfOrder": formattedDate
   }
-  sendOrderConfirmation(order);
+  //sendOrderConfirmation(order);
   let orderList = readOrders();
   orderList.push(order);
   fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
@@ -91,7 +95,6 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
 
   res.redirect('back')
 })
-
 app.post('/addACookie', urlencodedParser, (req, res, next) => {
   if (req.body.cookieName && req.body.price && req.body.amount) {
     let result = readInventory();
@@ -111,4 +114,13 @@ app.post('/addACookie', urlencodedParser, (req, res, next) => {
     })
   }
   res.redirect('back');
+})
+
+app.post('/sessions', urlencodedParser, (req, res, next) => {
+  if (req.body.user.password === "p") {
+    res.sendStatus(200)
+  }
+  else {
+    res.sendStatus(204)
+  }
 })

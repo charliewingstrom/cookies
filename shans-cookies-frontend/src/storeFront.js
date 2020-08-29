@@ -15,10 +15,10 @@ function StoreFront(props) {
             <div className={'cartStorefront'}>
             {
                 Object.entries(props.cart)
-                .map( ([key, value]) => <p className={"cartItem"}>{key}: {value}</p> )
+                .map( ([key, value], index) => <p className={"cartItem"} key={index}>{key}: {value}</p> )
               
             }
-            <p className={"total"}>Total: ${props.total}</p>
+            <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
             <div onClick={()=>props.clearCart()}>
             <p className={"total"} >Clear Cart</p>
             </div>

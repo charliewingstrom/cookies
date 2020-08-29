@@ -10,7 +10,7 @@ function checkout(props) {
                 .map( ([key, value]) => <p className={"cartItem"}>{key}: {value}</p> )
               
             }
-            <p className={"total"}>Total: ${props.total}</p>
+            <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
             <div onClick={()=>props.clearCart()}>
             <p className={"total"} >Clear Cart</p>
             </div>
@@ -18,11 +18,11 @@ function checkout(props) {
             <form id="myForm" method="POST" className={'checkoutBar'}>
                 <div className={'cookieListing'}>
                     <p>Name: </p>
-                    <input name="name"/>
+                    <input name="name" required/>
                 </div>
                 <div className={'cookieListing'}>
                     <p>Email: </p>
-                    <input name="email"/>
+                    <input name="email" required/>
                 </div>
                 <div className={'cookieListing'}>
                     <p>Phone Number: </p>

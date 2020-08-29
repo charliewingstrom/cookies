@@ -2,7 +2,7 @@ import React from 'react';
 import OrderListing from './orderListing';
 export default 
 function viewOrders(props) {
-    if (props.orders)
+    if (props.orders && props.loggedIn)
     {
         // made the json into an array for easier iteration with map
         var orderArray = [];
