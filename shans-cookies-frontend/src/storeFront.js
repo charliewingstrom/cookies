@@ -13,6 +13,7 @@ function StoreFront(props) {
     return (
         <div>
             <div className={'cartStorefront'}>
+                <p className={"cartItem"}>Cart:</p>
             {
                 Object.entries(props.cart)
                 .map( ([key, value], index) => <p className={"cartItem"} key={index}>{key}: {value}</p> )
