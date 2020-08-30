@@ -20,6 +20,7 @@ import { createBrowserHistory } from "history";
 import StoreFront from './storeFront';
 import About from './about';
 import Checkout from './checkout';
+import OrderSuccess from './orderSuccess'
 import Error from './error';
 import Login from './login';
 import AddACookie from './addACookie';
@@ -150,6 +151,11 @@ class App extends React.Component {
 				/>
 			</Fragment>
 		)
+		const OrderSuccessPage = () => (
+			<Fragment>
+				<OrderSuccess />
+			</Fragment>
+		)
 		const ErrorPage = () => (
 			<Fragment>
 				<Error/>
@@ -241,6 +247,7 @@ class App extends React.Component {
 						<Route path="/about" component={AboutPage}/>
 						<Route path="/addACookie" component={AddACookiePage}/>
 						<Route path="/checkout" component={CheckoutPage}/>
+						<Route path="/orderSuccess" component={OrderSuccessPage}/>
 						<Route path="/error" component={ErrorPage}/>
 						<Route path="/login" component={LoginPage}/>
 						<Route path="/orders" component={OrdersPage}/>

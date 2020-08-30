@@ -5,7 +5,8 @@ import readInventory from './readInventory.js';
 import readOrders from './readOrders.js';
 import * as fs from 'fs';
 import cors from 'cors';
-
+import querystring from 'querystring';
+import multer from 'multer';
 const app = express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -15,6 +16,32 @@ const port = process.env.PORT || 5000;
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 
 app.get('/cookies_backend', (req, res) => {
   let result = readInventory();
@@ -34,8 +61,9 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
   let email = req.body.email;
   let phoneNumber = req.body.phoneNumber;
   let total = req.body.total;
-  // make sure my data is valid
-  if (!name || !email || !phoneNumber || cartInput === '') {
+
+  // make sure the cart is not empty
+  if (cartInput === '') {
     res.redirect('/error')
     return
   }
@@ -93,27 +121,30 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
     if (err) return console.log(err);
   })
 
-  res.redirect('back')
+  const encodedOrder = querystring.stringify(order)
+  res.redirect('/orderSuccess?order' + encodedOrder)
 })
-app.post('/addACookie', urlencodedParser, (req, res, next) => {
+app.post('/addACookie', upload.single('image'), urlencodedParser, (req, res, next) => {
+  console.log(req.body.cookieListing);
+  console.log(req.file)
+  /*
   if (req.body.cookieName && req.body.price && req.body.amount) {
     let result = readInventory();
     var inventoryArray = [];
     Object.keys(result).forEach(function(key) {
       inventoryArray.push(result[key]);
     })
-
+    console.log(typeof req.body.cookieImage)
     inventoryArray.push(
       {"name":req.body.cookieName,
       "price":Number(req.body.price),
       "amountLeft":Number(req.body.amount)})
     var newInventory = JSON.stringify(inventoryArray);
-    console.log(newInventory)
     fs.writeFile('cookies.json', newInventory, function(err) {
       if (err) return console.log(err);
     })
-  }
-  res.redirect('back');
+  }*/
+  res.sendStatus(200)
 })
 
 app.post('/sessions', urlencodedParser, (req, res, next) => {
