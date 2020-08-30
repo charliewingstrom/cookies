@@ -10,7 +10,7 @@ export default class AddACookie extends React.Component {
             name: "",
             price: "",
             amount: "",
-            image: ""
+            image: undefined
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -25,7 +25,7 @@ export default class AddACookie extends React.Component {
 
     handleSubmit(event) {
         const { name, price, amount, image } = this.state;
-
+        console.log(typeof this.state.image)
         axios
             .post(
                 "http://localhost:5000/addACookie",
