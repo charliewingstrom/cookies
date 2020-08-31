@@ -10,13 +10,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {
     Router,
     Switch,
     Route
   } from "react-router-dom";
 import { createBrowserHistory } from "history";
-
 import StoreFront from './storeFront';
 import About from './about';
 import Checkout from './checkout';
@@ -213,7 +213,7 @@ class App extends React.Component {
 					<AppBar position="fixed" className={classes.appBar}>
 						<Toolbar>
 							<Typography variant="h6">Shan's Cookies</Typography>
-							<a href="/checkout" className={"checkout"}><Typography variant="h6">Checkout</Typography></a>
+							<a href="/checkout" className={"checkout"}><ShoppingCartIcon fontSize="large"/><Typography variant="h6">Checkout</Typography></a>
 						</Toolbar>
 						
 					</AppBar>

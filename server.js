@@ -125,25 +125,23 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
   res.redirect('/orderSuccess?order' + encodedOrder)
 })
 app.post('/addACookie', upload.single('image'), urlencodedParser, (req, res, next) => {
-  console.log(req.body.cookieListing);
-  console.log(req.file)
-  /*
-  if (req.body.cookieName && req.body.price && req.body.amount) {
-    let result = readInventory();
-    var inventoryArray = [];
-    Object.keys(result).forEach(function(key) {
-      inventoryArray.push(result[key]);
-    })
-    console.log(typeof req.body.cookieImage)
-    inventoryArray.push(
-      {"name":req.body.cookieName,
-      "price":Number(req.body.price),
-      "amountLeft":Number(req.body.amount)})
-    var newInventory = JSON.stringify(inventoryArray);
-    fs.writeFile('cookies.json', newInventory, function(err) {
-      if (err) return console.log(err);
-    })
-  }*/
+  
+  
+  
+  let result = readInventory();
+  var inventoryArray = [];
+  Object.keys(result).forEach(function(key) {
+    inventoryArray.push(result[key]);
+  })
+  console.log(typeof req.body.cookieImage)
+  inventoryArray.push(
+    {"name":req.body.cookieListing.name,
+    "price":Number(req.body.cookieListing.price),
+    "amountLeft":Number(req.body.cookieListing.amount)})
+  var newInventory = JSON.stringify(inventoryArray);
+  fs.writeFile('cookies.json', newInventory, function(err) {
+    if (err) return console.log(err);
+  })
   res.sendStatus(200)
 })
 
