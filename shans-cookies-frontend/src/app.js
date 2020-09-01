@@ -110,7 +110,6 @@ class App extends React.Component {
 		else {
 			tmpCart[name] = amount;
 		}
-		//var currTotal = UserInfo.getTotal() + price*amount
 		UserInfo.setCart(tmpCart);
 		UserInfo.setTotal(UserInfo.getTotal() + price*amount)
 		this.forceUpdate()

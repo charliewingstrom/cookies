@@ -1,6 +1,7 @@
 import React from 'react';
+import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
 
-export default
 function Cookie(props) {
     var amount;
     var numberToOrder=1;
@@ -18,12 +19,24 @@ function Cookie(props) {
             <div> 
             <p><strong>{props.amount}</strong> Remaining</p>
             <form>
-                <input 
+                <TextField 
                     className={"numberInput"}
                     type="number" 
                     onChange={handleInput}
+                    size="small"
+                    variant="outlined"
+                    placeholder="1"
                 />
-                <button type="button" onClick={order}>Add to Cart</button>
+                <Button variant="outlined" 
+                    style={{
+                        backgroundColor: "#00ccff",
+                        fontSize: 16,
+                        color: "white",
+                        marginRight: 0,
+                        marginLeft: "1em",
+                        
+                    }}
+                    onClick={order}>Add to Cart</Button>
             </form>
             </div>
     }
@@ -35,4 +48,4 @@ function Cookie(props) {
                 {amount}
             </div>
         )
-}
+}export default (Cookie);

@@ -31,6 +31,10 @@ input[type=number] {
 .appBar {
     background-color: '#2E3B55'
 }
+.Button {
+    background-color: #00ccff;
+    color: #00ccff;
+}
 .cartHeader {
     margin-top: 5em;
     margin-left: 2em;
@@ -130,7 +134,8 @@ input[type=number] {
     display: 'flex';
   }
 .numberInput {
-    width: 5em;
+    width: 3em;
+    border-color: white;
 }
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
