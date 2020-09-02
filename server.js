@@ -126,8 +126,8 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
 })
 app.post('/addACookie', upload.single('image'), urlencodedParser, (req, res, next) => {
   
-  
-  
+  console.log(req)
+  /*
   let result = readInventory();
   var inventoryArray = [];
   Object.keys(result).forEach(function(key) {
@@ -139,9 +139,10 @@ app.post('/addACookie', upload.single('image'), urlencodedParser, (req, res, nex
     "price":Number(req.body.cookieListing.price),
     "amountLeft":Number(req.body.cookieListing.amount)})
   var newInventory = JSON.stringify(inventoryArray);
+  
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
-  })
+  })*/
   res.sendStatus(200)
 })
 
