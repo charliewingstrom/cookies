@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Drawer from '@material-ui/core/Drawer';
@@ -211,8 +210,8 @@ class App extends React.Component {
 					<CssBaseline />
 					<AppBar position="fixed" className={classes.appBar}>
 						<Toolbar>
-							<Typography variant="h6">Shan's Cookies</Typography>
-							<a href="/checkout" className={"checkout"}><ShoppingCartIcon fontSize="large"/><Typography variant="h6">Checkout</Typography></a>
+							<p className={"navBar"}>Shan's Cookies</p>
+							<a href="/checkout" className={"checkout navBar"}><ShoppingCartIcon fontSize="large"/>Checkout</a>
 						</Toolbar>
 						
 					</AppBar>

@@ -95,6 +95,11 @@ input[type=number] {
 .drawerContainer {
     overflow: 'auto'
 }
+.navBar {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
 .orderInner {
     display: flex;
 }

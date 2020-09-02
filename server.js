@@ -144,7 +144,6 @@ app.post('/addACookie', upload.single('photo'), urlencodedParser, (req, res) => 
 })
 
 app.get('/images/:photoName', (req, res) => {
-  console.log(req.params.photoName)
   res.sendFile('/uploads/images/' + req.params.photoName, {root: '.'})
 })
 app.post('/sessions', urlencodedParser, (req, res, next) => {
