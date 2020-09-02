@@ -1,5 +1,4 @@
 import React from 'react';
-import cookieURL from './cookie.jpg';
 import Cookie from './cookie.js';
 export default 
 function StoreFront(props) {
@@ -29,7 +28,7 @@ function StoreFront(props) {
                         <Cookie 
                             key={index}
                             name={cookie.name} 
-                            pictureSrc={cookieURL} 
+                            pictureSrc={cookie.imageLocation} 
                             price={cookie.price} 
                             amount={cookie.amountLeft}
                             orderMe={(amount) => props.orderMe(amount,cookie.name,cookie.price)}

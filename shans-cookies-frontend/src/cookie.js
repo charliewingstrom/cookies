@@ -2,7 +2,11 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 
-function Cookie(props) {
+export default function Cookie(props) {
+    //const response = fetch('http://localhost:5000/images/' + props.pictureSrc)
+    
+
+
     var amount;
     var numberToOrder=1;
     var handleInput = event => {
@@ -42,10 +46,10 @@ function Cookie(props) {
     }
         return (
             <div className={"cookieListing"} key={props.index}>
-                <img src={props.pictureSrc} alt="Cookie"></img>
+                <img src={'http://localhost:5000/images/' + props.pictureSrc} alt="Cookie"></img>
                 <h3>{props.name}</h3>
                 <h3><strong>${props.price}</strong> / Each</h3>
                 {amount}
             </div>
         )
-}export default (Cookie);
+}

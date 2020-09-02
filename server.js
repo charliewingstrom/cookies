@@ -19,13 +19,12 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, './uploads/images');
   },
   filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    cb(null, file.originalname);
   }
 });
-
 const fileFilter = (req, file, cb) => {
   // reject a file
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -34,7 +33,6 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-
 const upload = multer({
   storage: storage,
   limits: {
@@ -55,7 +53,7 @@ app.get('/get_orders', (req, res) => {
 })
 
 // updates the current inventory, removing the amount requested in the cart from the total
-app.post('/checkout', urlencodedParser, (req, res, next) => {
+app.post('/checkout', urlencodedParser, (req, res) => {
   let cartInput = req.body.cart;
   let name = req.body.name;
   let email = req.body.email;
@@ -124,28 +122,31 @@ app.post('/checkout', urlencodedParser, (req, res, next) => {
   const encodedOrder = querystring.stringify(order)
   res.redirect('/orderSuccess?order' + encodedOrder)
 })
-app.post('/addACookie', upload.single('image'), urlencodedParser, (req, res, next) => {
-  
-  console.log(req)
-  /*
+
+// adds a cookie to the inventory
+app.post('/addACookie', upload.single('photo'), urlencodedParser, (req, res) => {
   let result = readInventory();
   var inventoryArray = [];
   Object.keys(result).forEach(function(key) {
     inventoryArray.push(result[key]);
   })
-  console.log(typeof req.body.cookieImage)
-  inventoryArray.push(
-    {"name":req.body.cookieListing.name,
-    "price":Number(req.body.cookieListing.price),
-    "amountLeft":Number(req.body.cookieListing.amount)})
-  var newInventory = JSON.stringify(inventoryArray);
-  
+  inventoryArray.push({
+    "name":req.body.name,
+    "price":Number(req.body.price),
+    "amountLeft":Number(req.body.amount),
+    "imageLocation":req.file.originalname
+  })
+  var newInventory = JSON.stringify(inventoryArray);  
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
-  })*/
-  res.sendStatus(200)
+  })
+  res.redirect('back')
 })
 
+app.get('/images/:photoName', (req, res) => {
+  console.log(req.params.photoName)
+  res.sendFile('/uploads/images/' + req.params.photoName, {root: '.'})
+})
 app.post('/sessions', urlencodedParser, (req, res, next) => {
   if (req.body.user.password === "p") {
     res.sendStatus(200)
