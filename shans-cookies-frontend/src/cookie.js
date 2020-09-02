@@ -3,10 +3,6 @@ import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 
 export default function Cookie(props) {
-    //const response = fetch('http://localhost:5000/images/' + props.pictureSrc)
-    
-
-
     var amount;
     var numberToOrder=1;
     var handleInput = event => {

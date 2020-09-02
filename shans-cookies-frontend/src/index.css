@@ -8,8 +8,8 @@ body {
     background-color: aqua;
 }
 img {
-    height:250px;
-    width:250px;
+    height:275px;
+    width:275px;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -33,7 +33,6 @@ input[type=number] {
 }
 .Button {
     background-color: #00ccff;
-    color: #00ccff;
 }
 .cartHeader {
     margin-top: 5em;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Button from "@material-ui/core/Button";
 export default
 function checkout(props) {
     return (
@@ -11,9 +11,16 @@ function checkout(props) {
               
             }
             <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
-            <div onClick={()=>props.clearCart()}>
-            <p className={"total"} >Clear Cart</p>
-            </div>
+            <Button variant="outlined" 
+                style={{
+                    backgroundColor: "#00ccff",
+                    fontSize: 16,
+                    color: "white",
+                    marginRight: 0,
+                    marginLeft: "1em",
+                }}
+                onClick={() => props.clearCart()}>Clear Cart
+            </Button>
             </div>
             <form id="myForm" method="POST" className={'checkoutBar'}>
                 <div className={'cookieListing'}>

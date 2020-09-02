@@ -1,5 +1,6 @@
 import React from 'react';
 import Cookie from './cookie.js';
+import Button from "@material-ui/core/Button";
 export default 
 function StoreFront(props) {
     if (props.cookies)
@@ -13,15 +14,22 @@ function StoreFront(props) {
         <div>
             <div className={'cartStorefront'}>
                 <p className={"cartItem"}>Cart:</p>
-            {
-                Object.entries(props.cart)
-                .map( ([key, value], index) => <p className={"cartItem"} key={index}>{key}: {value}</p> )
-              
-            }
-            <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
-            <div onClick={()=>props.clearCart()}>
-            <p className={"total"} >Clear Cart</p>
-            </div>
+                {
+                    Object.entries(props.cart)
+                    .map( ([key, value], index) => <p className={"cartItem"} key={index}>{key}: {value}</p> )
+                
+                }
+                <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
+                <Button variant="outlined" 
+                    style={{
+                        backgroundColor: "#00ccff",
+                        fontSize: 16,
+                        color: "white",
+                        marginRight: 0,
+                        marginLeft: "1em",
+                    }}
+                    onClick={() => props.clearCart()}>Clear Cart
+                </Button>
             </div>
             <div className={'storeFront'}>{
                     cookieArray.map((cookie, index) => (
