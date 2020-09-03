@@ -51,51 +51,42 @@ app.get('/get_orders', (req, res) => {
   let result = readOrders();
   res.send({orders: result});
 })
-
+function isEmpty(obj) {
+  for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+          return false;
+  }
+  return true;
+}
 // updates the current inventory, removing the amount requested in the cart from the total
 app.post('/checkout', urlencodedParser, (req, res) => {
-  let cartInput = req.body.cart;
-  let name = req.body.name;
-  let email = req.body.email;
-  let phoneNumber = req.body.phoneNumber;
-  let total = req.body.total;
+  let cartInput = req.body.order.cart;
+  let name = req.body.order.name;
+  let email = req.body.order.email;
+  let phoneNumber = req.body.order.phoneNumber;
+  let total = req.body.order.total;
 
   // make sure the cart is not empty
-  if (cartInput === '') {
-    res.redirect('/error')
-    return
+  if (isEmpty(cartInput)) {
+    res.sendStatus(203)
+    return;
   }
-
-  // get the current inventory 
-  let result = readInventory();
-  var inventoryArray = [];
-  Object.keys(result).forEach(function(key) {
-    inventoryArray.push(result[key]);
-  })
+  console.log("Cart input " + cartInput)
+  let inventory = readInventory();
   
-  // removes the amount of cookies ordered from the inventory
-  // recreates a dictionary from the string provided from cartInput
-  var cartInputArray = cartInput.split(',')
-  for (var i = 0; i < cartInputArray.length; i+=2)
-  {
-    var cookieName = cartInputArray[i];
-    var cookieAmount = cartInputArray[i+1];
-    cartInputArray[i+1] = Number(cartInputArray[i+1])
-    for (var cookie in inventoryArray)
-      {
-        if (cookieName === inventoryArray[cookie]["name"]) {
-          // check to see if the user is requesting more cookies than are avaliable
-          if (cookieAmount <= inventoryArray[cookie]["amountLeft"]) {
-            inventoryArray[cookie]["amountLeft"] -= cookieAmount;
-          }
-          else {
-            res.redirect('/error');
-            return;
-          }
+  for (var cookie in cartInput) {
+    for (var i in inventory) {
+      if (cookie === inventory[i]["name"])
+        // if the amount is less than or equal to the amount left
+        if (cartInput[cookie] <= inventory[i]["amountLeft"]) {
+          inventory[i]["amountLeft"] -= cartInput[cookie]
         }
-      }
+        else {
+          res.sendStatus(204)
+          return
+        }
+    }
   }
-
   // add the order to orders.json
   var currDate = new Date()
   const formattedDate = (currDate.getMonth()+1)+"/"+currDate.getDate()+" "+currDate.getHours()+":"+String(currDate.getMinutes()).padStart(2, '0')
@@ -103,7 +94,7 @@ app.post('/checkout', urlencodedParser, (req, res) => {
     "name":name,
     "email":email,
     "phoneNumber":phoneNumber,
-    "order":cartInputArray,
+    "order":cartInput,
     "total": total,
     "timeOfOrder": formattedDate
   }
@@ -114,13 +105,12 @@ app.post('/checkout', urlencodedParser, (req, res) => {
     if (err) return console.log(err);
   })
 
-  var newInventory = JSON.stringify(inventoryArray);
+  var newInventory = JSON.stringify(inventory);
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
   })
 
-  const encodedOrder = querystring.stringify(order)
-  res.redirect('/orderSuccess?order' + encodedOrder)
+  res.sendStatus(200);
 })
 
 // adds a cookie to the inventory
