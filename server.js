@@ -51,6 +51,7 @@ app.get('/get_orders', (req, res) => {
   let result = readOrders();
   res.send({orders: result});
 })
+
 function isEmpty(obj) {
   for(var key in obj) {
       if(obj.hasOwnProperty(key))
@@ -66,14 +67,12 @@ app.post('/checkout', urlencodedParser, (req, res) => {
   let phoneNumber = req.body.order.phoneNumber;
   let total = req.body.order.total;
 
-  // make sure the cart is not empty
   if (isEmpty(cartInput)) {
     res.sendStatus(203)
-    return;
+    return
   }
-  console.log("Cart input " + cartInput)
+
   let inventory = readInventory();
-  
   for (var cookie in cartInput) {
     for (var i in inventory) {
       if (cookie === inventory[i]["name"])

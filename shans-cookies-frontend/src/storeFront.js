@@ -11,8 +11,8 @@ function StoreFront(props) {
             cookieArray.push(props.cookies[key]);
         })
     return (
-        <div>
-            <div className={'cartStorefront'}>
+        <div className={'page'}>
+            <div className={'cartBar'}>
                 <p className={"cartItem"}>Cart:</p>
                 {
                     Object.entries(props.cart)
@@ -20,13 +20,16 @@ function StoreFront(props) {
                 
                 }
                 <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
-                <Button variant="outlined" 
+                <Button 
+                    variant="contained" 
                     style={{
                         backgroundColor: "#00ccff",
                         fontSize: 16,
                         color: "white",
-                        marginRight: 0,
+                        marginRight: '1em',
                         marginLeft: "1em",
+                        height: '3em',
+                        marginTop:'0.75em'
                     }}
                     onClick={() => props.clearCart()}>Clear Cart
                 </Button>

@@ -44,6 +44,7 @@ class Checkout extends React.Component {
         console.log(response)
         if (response.status === 200) {
             console.log("nice.. Order went through")
+            this.props.clearCart();
         }
         else if (response.status === 203) {
             console.log("The cart was empty")
@@ -59,26 +60,29 @@ class Checkout extends React.Component {
   }
     render() {
         return (
-            <div>
-                <div className={'cartStorefront'}>
+            <div className={'page'}>
+                <div className={'cartBar'}>
+                <p className={"cartItem"}>Cart:</p>
                 {
                     Object.entries(this.props.cart)
                     .map( ([key, value]) => <p className={"cartItem"} key={key}>{key}: {value}</p> )
                 
                 }
                 <p className={"total"}>Total: ${this.props.total.toFixed(2)}</p>
-                <Button variant="outlined" 
+                <Button variant="contained" 
                     style={{
                         backgroundColor: "#00ccff",
                         fontSize: 16,
                         color: "white",
-                        marginRight: 0,
+                        marginRight: '1em',
                         marginLeft: "1em",
+                        height: '3em',
+                        marginTop:'0.75em'
                     }}
                     onClick={() => this.props.clearCart()}>Clear Cart
                 </Button>
                 </div>
-                <form id="myForm" onSubmit={this.handleSubmit} className={'checkoutBar'}>
+                <form onSubmit={this.handleSubmit} className={'checkoutBar'}>
                     <div className={'cookieListing'}>
                         <TextField
                             type="Text"
@@ -122,64 +126,17 @@ class Checkout extends React.Component {
                             }}
                             onChange={this.handleChange}
                         />
-                    </div >
+                    </div>
                     <div>
                         <input type="submit" value="Submit"/>
                     </div>
                 </form>
+                <div className={'checkoutDisplay'}>
+                    {
+
+                    }
+                </div>
             </div>
         )
     }
 }
-/*
-function checkout(props) {
-    return (
-        <div>
-            <div className={'cartStorefront'}>
-            {
-                Object.entries(props.cart)
-                .map( ([key, value]) => <p className={"cartItem"}>{key}: {value}</p> )
-              
-            }
-            <p className={"total"}>Total: ${props.total.toFixed(2)}</p>
-            <Button variant="outlined" 
-                style={{
-                    backgroundColor: "#00ccff",
-                    fontSize: 16,
-                    color: "white",
-                    marginRight: 0,
-                    marginLeft: "1em",
-                }}
-                onClick={() => props.clearCart()}>Clear Cart
-            </Button>
-            </div>
-            <form id="myForm" method="POST" className={'checkoutBar'}>
-                <div className={'cookieListing'}>
-                    <TextField
-                        type="Text"
-                        size="medium"
-                        variant="filled"
-                        label="Name"
-                        style={{
-                            backgroundColor: "white",
-                            borderRadius: "0.5em",
-                        }}
-                    />
-                </div>
-                <div className={'cookieListing'}>
-                    <p>Email: </p>
-                    <input name="email" required/>
-                </div>
-                <div className={'cookieListing'}>
-                    <p>Phone Number: </p>
-                    <input name="phoneNumber"/>
-                </div >
-                    <input type="hidden" name="total" value={props.total} readOnly={true}/>
-                <div>
-                    <input name="cart" type="hidden" value={Object.entries(props.cart)} readOnly={true}/>
-                    <input type="submit" value="Submit" onSubmit={() => props.clearCart()}/>
-                </div>
-            </form>
-        </div>
-    )
-}*/

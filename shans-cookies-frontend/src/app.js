@@ -52,7 +52,8 @@ const useStyles = (theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    overflow: 'auto',
+	overflow: 'auto',
+	marginTop: '1em',
   },
   content: {
     flexGrow: 1,
@@ -180,7 +181,8 @@ class App extends React.Component {
 				<Checkout
 					cart={UserInfo.getCart()}
 					total={UserInfo.getTotal()}
-					clearCart={this.clearCart}
+					clearCart={() => this.clearCart()}
+					inventory={this.state.cookiesJSON}
 				/>
 			</Fragment>
 		)
@@ -189,13 +191,13 @@ class App extends React.Component {
 		if (UserInfo.getLogin()) {
 			IfLoggedIn = (
 				<Fragment>
-					<a href="/addACookie">
+					<a href="/addACookie" className={'drawerLinks'}>
 						<ListItem>
 							<ListItemIcon></ListItemIcon>
 							<ListItemText primary={"Add a Cookie"}/>
 						</ListItem>
 					</a>
-					<a href="/orders">
+					<a href="/orders" className={'drawerLinks'}>
 						<ListItem>
 							<ListItemIcon></ListItemIcon>
 							<ListItemText primary={"View Orders"}/>
@@ -219,19 +221,19 @@ class App extends React.Component {
 						<Toolbar/>
 						<div className={classes.drawerContainer}>
 							<List>
-							<a href="/">
+							<a href="/" className={'drawerLinks'}>
 								<ListItem>
 									<ListItemIcon><HomeIcon/></ListItemIcon>
 									<ListItemText primary={"Home"}/>
 								</ListItem>
 							</a>
-							<a href="/about">
+							<a href="/about" className={'drawerLinks'}>
 								<ListItem>
 									<ListItemIcon></ListItemIcon>
 									<ListItemText primary={"About"}/>
 								</ListItem>
 							</a>
-							<a href="/login">
+							<a href="/login" className={'drawerLinks'}>
 							<ListItem>
 									<ListItemIcon></ListItemIcon>
 									<ListItemText primary={"Admin Login"}/>

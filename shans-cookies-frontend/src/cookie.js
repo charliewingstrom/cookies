@@ -20,7 +20,7 @@ export default function Cookie(props) {
             <p><strong>{props.amount}</strong> Remaining</p>
             <form>
                 <TextField 
-                    className={"numberInput"}
+                    className={"cookieNumberInput"}
                     type="number" 
                     onChange={handleInput}
                     size="small"
@@ -28,13 +28,13 @@ export default function Cookie(props) {
                     placeholder="1"
                 />
                 <Button variant="outlined" 
+                    className={"cookieAddToCartButton"}
                     style={{
                         backgroundColor: "#00ccff",
                         fontSize: 16,
                         color: "white",
                         marginRight: 0,
                         marginLeft: "1em",
-                        
                     }}
                     onClick={order}>Add to Cart</Button>
             </form>

@@ -2,20 +2,13 @@ import React from 'react';
 
 export default
 function OrderListing(props) {
-    const orderItems = [] 
-    for (var i = 0; i < props.order.length; i+=2) {
-        orderItems.push({
-            "name": props.order[i],
-            "amountOrdered": props.order[i+1]
-        })
-    }
     return (
         <div className={"order"}>
         	<p>{props.name}		|	{props.email}    |   {props.phoneNumber}</p>
 			<div className={"orderInner"}>
 				<div>{
-				orderItems.map((order, index) => (
-					<div key={index}>- {order.name}: {order.amountOrdered}x</div>
+				Object.keys(props.order).map((order, index) => (
+					<div key={index}>- {order}: {props.order[order]}x</div>
 				))
 				}</div>
 				<div className={"orderRightInfo"}>
