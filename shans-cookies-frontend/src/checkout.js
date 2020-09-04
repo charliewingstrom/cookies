@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookie from './cookie'
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
@@ -11,10 +12,12 @@ class Checkout extends React.Component {
             email: "",
             phoneNumber: "",
             cart: this.props.cart,
-            total: this.props.total
+            total: this.props.total,
+            
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        
     }
 
   handleChange(event) {
@@ -59,84 +62,98 @@ class Checkout extends React.Component {
     event.preventDefault();
   }
     render() {
-        return (
-            <div className={'page'}>
-                <div className={'cartBar'}>
-                <p className={"cartItem"}>Cart:</p>
-                {
-                    Object.entries(this.props.cart)
-                    .map( ([key, value]) => <p className={"cartItem"} key={key}>{key}: {value}</p> )
-                
-                }
-                <p className={"total"}>Total: ${this.props.total.toFixed(2)}</p>
-                <Button variant="contained" 
-                    style={{
-                        backgroundColor: "#00ccff",
-                        fontSize: 16,
-                        color: "white",
-                        marginRight: '1em',
-                        marginLeft: "1em",
-                        height: '3em',
-                        marginTop:'0.75em'
-                    }}
-                    onClick={() => this.props.clearCart()}>Clear Cart
-                </Button>
+        if (this.props.inventory) {
+            var inventory = this.props.inventory
+            console.log(this.props.inventory)
+            return (
+                <div className={'page'}>
+                    <div className={'cartBar'}>
+                        <p className={"cartItem"}>Cart:</p>
+                        {
+                            Object.entries(this.props.cart)
+                            .map( ([key, value]) => <p className={"cartItem"} key={key}>{key}: {value}</p> )
+                        
+                        }
+                        <p className={"total"}>Total: ${this.props.total.toFixed(2)}</p>
+                        <Button variant="contained" 
+                            style={{
+                                backgroundColor: "#00ccff",
+                                fontSize: 16,
+                                color: "white",
+                                marginRight: '1em',
+                                marginLeft: "1em",
+                                height: '3em',
+                                marginTop:'0.75em'
+                            }}
+                            onClick={() => this.props.clearCart()}>Clear Cart
+                        </Button>
+                    </div>
+                    <form onSubmit={this.handleSubmit} className={'checkoutBar'}>
+                        <div className={'cookieListing'}>
+                            <TextField
+                                type="Text"
+                                size="medium"
+                                variant="filled"
+                                name="name"
+                                label="Name"
+                                required={true}
+                                style={{
+                                    backgroundColor: "white",
+                                    borderRadius: "0.5em",
+                                }}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className={'cookieListing'}>
+                            <TextField
+                                type="Text"
+                                size="medium"
+                                variant="filled"
+                                name="email"
+                                label="Email"
+                                required={true}
+                                style={{
+                                    backgroundColor: "white",
+                                    borderRadius: "0.5em",
+                                }}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className={'cookieListing'}>
+                            <TextField
+                                type="Text"
+                                size="medium"
+                                variant="filled"
+                                name="phoneNumber"
+                                label="Phone Number"
+                                style={{
+                                    backgroundColor: "#ffffff",
+                                    borderRadius: "0.5em",
+                                }}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div>
+                            <input type="submit" value="Submit"/>
+                        </div>
+                    </form>
+                    <div></div>
+                    <div className={'checkoutDisplay'}>
+                        {
+                            inventory.map((cookie, index) => (
+                                <Cookie 
+                                    key={index}
+                                    name={cookie.name} 
+                                    pictureSrc={cookie.imageLocation} 
+                                    price={cookie.price} 
+                                    amount={cookie.amountLeft}
+                                />
+                            ))
+                        }
+                    </div>
                 </div>
-                <form onSubmit={this.handleSubmit} className={'checkoutBar'}>
-                    <div className={'cookieListing'}>
-                        <TextField
-                            type="Text"
-                            size="medium"
-                            variant="filled"
-                            name="name"
-                            label="Name"
-                            required={true}
-                            style={{
-                                backgroundColor: "white",
-                                borderRadius: "0.5em",
-                            }}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className={'cookieListing'}>
-                        <TextField
-                            type="Text"
-                            size="medium"
-                            variant="filled"
-                            name="email"
-                            label="Email"
-                            required={true}
-                            style={{
-                                backgroundColor: "white",
-                                borderRadius: "0.5em",
-                            }}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className={'cookieListing'}>
-                        <TextField
-                            type="Text"
-                            size="medium"
-                            variant="filled"
-                            name="phoneNumber"
-                            label="Phone Number"
-                            style={{
-                                backgroundColor: "#ffffff",
-                                borderRadius: "0.5em",
-                            }}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div>
-                        <input type="submit" value="Submit"/>
-                    </div>
-                </form>
-                <div className={'checkoutDisplay'}>
-                    {
-
-                    }
-                </div>
-            </div>
-        )
+            )
+        }
+        else return null;
     }
 }
