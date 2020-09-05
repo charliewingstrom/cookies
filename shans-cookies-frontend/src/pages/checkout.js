@@ -1,5 +1,5 @@
 import React from 'react';
-import Cookie from './cookie'
+import Cookie from '../cookie'
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';

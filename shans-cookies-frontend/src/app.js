@@ -16,15 +16,15 @@ import {
     Route
   } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import StoreFront from './storeFront';
-import About from './about';
-import Checkout from './checkout';
-import OrderSuccess from './orderSuccess'
-import Error from './error';
-import Login from './login';
-import AddACookie from './addACookie';
+import StoreFront from './pages/storeFront';
+import About from './pages/about';
+import Checkout from './pages/checkout';
+import OrderSuccess from './pages/orderSuccess'
+import Error from './pages/error';
+import Login from './pages/login';
+import AddACookie from './pages/addACookie';
 import UserInfo from './userInfo';
-import ViewOrders from './viewOrders';
+import ViewOrders from './pages/viewOrders';
 const drawerWidth = 240;
 
 function HomeIcon(props) {

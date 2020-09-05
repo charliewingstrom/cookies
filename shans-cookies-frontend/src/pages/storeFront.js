@@ -1,5 +1,5 @@
 import React from 'react';
-import Cookie from './cookie.js';
+import Cookie from '../cookie.js';
 import Button from "@material-ui/core/Button";
 export default 
 function StoreFront(props) {

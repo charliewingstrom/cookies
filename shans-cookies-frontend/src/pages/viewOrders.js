@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderListing from './orderListing';
+import OrderListing from '../orderListing';
 export default 
 function viewOrders(props) {
     if (props.orders && props.loggedIn)
