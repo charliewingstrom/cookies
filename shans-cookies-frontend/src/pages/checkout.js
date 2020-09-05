@@ -1,5 +1,5 @@
 import React from 'react';
-import Cookie from '../cookie'
+import CartDisplay from '../cartDisplayTemplate'
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
@@ -62,9 +62,42 @@ class Checkout extends React.Component {
     event.preventDefault();
   }
     render() {
-        if (this.props.inventory) {
+        if (this.props.inventory && this.props.cart) {
+            // combining my two tables
             var inventory = this.props.inventory
-            console.log(this.props.inventory)
+            var cart = this.props.cart
+            var displayObjects = []
+            for (var cookie in cart) {
+                for (var i in inventory) {
+                    if (inventory[i].name === cookie) {
+                        displayObjects.push({
+                            "name": cookie,
+                            "imageLocation": inventory[i].imageLocation,
+                            "amount": cart[cookie],
+                            "price": inventory[i].price
+                        })
+                    }
+                }
+            }
+            var checkoutDisplay = <div></div>
+            if (this.props.cart) {
+                checkoutDisplay = (
+                    <div className={'checkoutDisplay'}>
+                        {
+                            displayObjects.map((cookie) => (
+                                <CartDisplay
+                                    key={cookie.name}
+                                    name={cookie.name} 
+                                    imageLocation={cookie.imageLocation} 
+                                    price={cookie.price} 
+                                    amount={cookie.amount}
+                                />
+                            ))
+                        }
+                        <h2>Total: ${this.state.total}</h2>
+                    </div>
+                )
+            }
             return (
                 <div className={'page'}>
                     <div className={'cartBar'}>
@@ -138,22 +171,10 @@ class Checkout extends React.Component {
                         </div>
                     </form>
                     <div></div>
-                    <div className={'checkoutDisplay'}>
-                        {
-                            inventory.map((cookie, index) => (
-                                <Cookie 
-                                    key={index}
-                                    name={cookie.name} 
-                                    pictureSrc={cookie.imageLocation} 
-                                    price={cookie.price} 
-                                    amount={cookie.amountLeft}
-                                />
-                            ))
-                        }
-                    </div>
+                    {checkoutDisplay}
                 </div>
             )
         }
-        else return null;
+        else return <h1>Loading...</h1>;
     }
 }

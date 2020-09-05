@@ -43,7 +43,7 @@ export default function Cookie(props) {
         return (
             <div className={"cookieListing"} key={props.index}>
                 <img src={'http://localhost:5000/images/' + props.pictureSrc} alt="Cookie"></img>
-                <h3>{props.name}</h3>
+                <h2>{props.name}</h2>
                 <h3><strong>${props.price}</strong> / Each</h3>
                 {amount}
             </div>
