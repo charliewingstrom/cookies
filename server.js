@@ -97,7 +97,7 @@ app.post('/checkout', urlencodedParser, (req, res) => {
     "total": total,
     "timeOfOrder": formattedDate
   }
-  //sendOrderConfirmation(order);
+  sendOrderConfirmation(order);
   let orderList = readOrders();
   orderList.push(order);
   fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {

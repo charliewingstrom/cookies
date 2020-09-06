@@ -13,7 +13,7 @@ export default function sendOrderConfirmation(order) {
         from: `charliewingstrom@gmail.com`,
         to: order["email"],
         subject: "Shan's Cookies - Order Confirmation",
-        text: "You ordered " + order["order"] 
+        html: "<h1>Here is some html</h1>"
       };
       
       transporter.sendMail(mailOptions, function(error, info){
