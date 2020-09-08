@@ -51,9 +51,11 @@ class Checkout extends React.Component {
         }
         else if (response.status === 203) {
             console.log("The cart was empty")
+            alert("Your order did not go through because your cart is empty.")
         }
         else if (response.status === 204) {
             console.log("You tried ordering too many of one type")
+            alert("Your order did not go through because you tried to order too many cookies than are avaliable.")
         }
       })
       .catch(error => {
