@@ -1,7 +1,20 @@
-<div style="background-color: #ff3399">
+<style>
+    .cookieListing {
+        color: white;
+        font-size: large;
+        background-color: #ff3399;
+        margin: 1ex;
+        padding: 1.5em;
+        border-radius: 0.5ex;
+        width:auto;
+    }
+</style>
+<div class="cookieListing">
     <h3>Hello {{name}}</h3>
     <p>You order from Shan's Cookies was successful. Here is your order.</p>
-    <p>{{order}}</p>
+    {{#each order}}
+        <p>{{this}}</p>
+    {{/each}}
     <p>Your total is: ${{total}}</p>
     <p>Thank You!</p>
 </div>
