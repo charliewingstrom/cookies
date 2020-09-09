@@ -97,13 +97,12 @@ app.post('/checkout', urlencodedParser, (req, res) => {
     "total": total,
     "timeOfOrder": formattedDate
   }
-  sendOrderConfirmation(order);
   let orderList = readOrders();
   orderList.push(order);
   fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
     if (err) return console.log(err);
   })
-
+  sendOrderConfirmation(order);
   var newInventory = JSON.stringify(inventory);
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
@@ -115,17 +114,13 @@ app.post('/checkout', urlencodedParser, (req, res) => {
 // adds a cookie to the inventory
 app.post('/addACookie', upload.single('photo'), urlencodedParser, (req, res) => {
   let result = readInventory();
-  var inventoryArray = [];
-  Object.keys(result).forEach(function(key) {
-    inventoryArray.push(result[key]);
-  })
-  inventoryArray.push({
+  result.push({
     "name":req.body.name,
     "price":Number(req.body.price),
     "amountLeft":Number(req.body.amount),
     "imageLocation":req.file.originalname
   })
-  var newInventory = JSON.stringify(inventoryArray);  
+  var newInventory = JSON.stringify(result);  
   fs.writeFile('cookies.json', newInventory, function(err) {
     if (err) return console.log(err);
   })

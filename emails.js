@@ -8,9 +8,8 @@ var transporter = nodemailer.createTransport({
     pass: `DontPushYourPassword`
   }
 });
-function getTemplateEmail(order, callback) {
-  console.log(order)
-  fs.readFile('./orderEmailTemplate.html', {encoding: 'utf-8'}, function (err, html) {
+function getTemplateEmail(callback) {
+  fs.readFile('./orderEmailTemplate.hbs', {encoding: 'utf-8'}, function (err, html) {
     if (err) {
       throw err
     }
@@ -20,10 +19,12 @@ function getTemplateEmail(order, callback) {
   })
 }
 export default function sendOrderConfirmation(order) {
-  getTemplateEmail(order["order"], function(err, html) {
+  getTemplateEmail(function(err, html) {
     var template = handlebars.compile(html)
     var replacements = {
-      username: "John Doe"
+      name: order.name,
+      order: Object.entries(order.order),
+      total: order.total
     }
     var htmlToSend = template(replacements);
     var mailOptions = {
