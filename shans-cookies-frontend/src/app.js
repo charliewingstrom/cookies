@@ -136,11 +136,10 @@ class App extends React.Component {
 			)
 			.then(response => {
 				console.log(response)
-				this.forceUpdate();
 			})
 			.catch(error => {
 				console.log("Remove cookie error: ", error)
-			});
+		});
 	}
     render() {
 		if (!UserInfo.getCart()) {

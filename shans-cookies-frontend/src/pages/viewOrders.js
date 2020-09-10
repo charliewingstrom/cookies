@@ -1,5 +1,17 @@
 import React from 'react';
 import OrderListing from '../orderListing';
+import axios from 'axios';
+
+function getOrdersAsCSV() {
+    axios
+    .get("http://localhost:5000/ordersAsCSV")
+    .then(response => {
+        console.log(response)
+    })
+    .catch(err => {
+        console.log("get orders as csv error: ", err)
+    })
+}
 export default 
 function viewOrders(props) {
     if (props.orders && props.loggedIn)
@@ -24,6 +36,7 @@ function viewOrders(props) {
                     />    
                 ))
                 }
+                <button onClick={getOrdersAsCSV}>Get orders as a Spreadsheet</button>
             </div>
         )
     }

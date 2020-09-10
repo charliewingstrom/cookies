@@ -3,9 +3,9 @@ import bodyParser from 'body-parser';
 import sendOrderConfirmation from './emails.js';
 import readInventory from './readInventory.js';
 import readOrders from './readOrders.js';
+import convertOrdersToCSV from './convertOrdersToCSV.js';
 import * as fs from 'fs';
 import cors from 'cors';
-import querystring from 'querystring';
 import multer from 'multer';
 const app = express();
 
@@ -152,4 +152,9 @@ app.post('/removeCookie', urlencodedParser, (req, res) => {
   }
 
   res.sendStatus(200)
+})
+
+app.get('/ordersAsCSV', (req, res) => {
+  convertOrdersToCSV()
+  res.sendFile('/orders.csv', {root: '.'})
 })
