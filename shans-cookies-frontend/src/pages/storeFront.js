@@ -40,6 +40,8 @@ function StoreFront(props) {
                                 price={cookie.price} 
                                 amount={cookie.amountLeft}
                                 orderMe={(amount) => props.orderMe(amount,cookie.name,cookie.price)}
+                                signedIn={props.signedIn}
+                                removeCookie={() => props.removeCookie(cookie.name)}
                             />
                         ))
                 }</div>

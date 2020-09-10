@@ -26,6 +26,7 @@ import Login from './pages/login';
 import AddACookie from './pages/addACookie';
 import UserInfo from './userInfo';
 import ViewOrders from './pages/viewOrders';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -72,6 +73,7 @@ class App extends React.Component {
 			  ordersJSON: null,
 		}
 		this.clearCart = this.clearCart.bind(this)
+		this.removeCookie = this.removeCookie.bind(this)
 	};
 	componentDidMount() {
 		
@@ -123,6 +125,23 @@ class App extends React.Component {
 		this.forceUpdate()
 	}
 
+	removeCookie(name) {
+		axios
+			.post(
+				"http://localhost:5000/removeCookie",
+				{
+					cookieToRemove: name
+				},
+				{ withCredentials: true }
+			)
+			.then(response => {
+				console.log(response)
+				this.forceUpdate();
+			})
+			.catch(error => {
+				console.log("Remove cookie error: ", error)
+			});
+	}
     render() {
 		if (!UserInfo.getCart()) {
 			UserInfo.setCart({})
@@ -136,6 +155,8 @@ class App extends React.Component {
 					cart = {UserInfo.getCart()}
 					total = {UserInfo.getTotal()}
 					clearCart={this.clearCart}
+					signedIn={UserInfo.getLogin()}
+					removeCookie={(name) => this.removeCookie(name)}
 				/>
 		  </Fragment>
 	  	)
