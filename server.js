@@ -158,3 +158,9 @@ app.get('/ordersAsCSV', (req, res) => {
   convertOrdersToCSV()
   res.sendFile('/orders.csv', {root: '.'})
 })
+
+app.post('/removeOrders', urlencodedParser, (req, res) => {
+  fs.writeFile('orders.json', JSON.stringify([]), function(err) {
+    if (err) return console.log(err);
+  })
+})

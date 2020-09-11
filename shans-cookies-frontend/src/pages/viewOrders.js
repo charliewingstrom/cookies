@@ -12,8 +12,22 @@ function getOrdersAsCSV() {
         console.log("get orders as csv error: ", err)
     })
 }
+
 export default 
 function viewOrders(props) {
+
+    var deleteAllOrders = () => {
+        if (window.confirm("Are you sure you want to delete all orders?")) {
+            axios
+            .post("http://localhost:5000/removeOrders")
+            .then( response => {
+                console.log(response)
+            })
+            .catch(err => {
+                console.log("Delete All Orders error: ", err)
+            })
+        }
+    }
     if (props.orders && props.loggedIn)
     {
         // made the json into an array for easier iteration with map
@@ -23,20 +37,23 @@ function viewOrders(props) {
         })
         return (
             <div className={"page aboutPage"}>
-                {
-                orderArray.map((order, index) => (
-                    <OrderListing
-                        key={index}
-                        name={order.name}
-                        email={order.email}
-                        phoneNumber={order.phoneNumber}
-                        order={order["order"]}
-                        total={order.total}
-                        timeOrdered={order.timeOfOrder}
-                    />    
-                ))
-                }
+                <div className={'page'}>
+                    {
+                    orderArray.map((order, index) => (
+                        <OrderListing
+                            key={index}
+                            name={order.name}
+                            email={order.email}
+                            phoneNumber={order.phoneNumber}
+                            order={order["order"]}
+                            total={order.total}
+                            timeOrdered={order.timeOfOrder}
+                        />    
+                    ))
+                    }
+                </div>
                 <button onClick={getOrdersAsCSV}>Get orders as a Spreadsheet</button>
+                <button onClick={deleteAllOrders}>Delete all orders</button>
             </div>
         )
     }
