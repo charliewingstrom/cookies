@@ -26,7 +26,8 @@ app.post('/checkout', urlencodedParser, (req, res) => {
       return
     }
   
-    let inventory = readInventory();
+    let rawInventory = fs.readFileSync('cookies.json');
+    let inventory = JSON.parse(rawInventory);
     for (var cookie in cartInput) {
       for (var i in inventory) {
         if (cookie === inventory[i]["name"])
@@ -51,7 +52,8 @@ app.post('/checkout', urlencodedParser, (req, res) => {
       "total": total,
       "timeOfOrder": formattedDate
     }
-    let orderList = readOrders();
+    let rawdata = fs.readFileSync('orders.json');
+    let orderList = JSON.parse(rawdata);
     orderList.push(order);
     fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
       if (err) return console.log(err);

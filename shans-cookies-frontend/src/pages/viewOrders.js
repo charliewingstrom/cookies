@@ -2,7 +2,20 @@ import React from 'react';
 import OrderListing from '../orderListing';
 import axios from 'axios';
 
-function getOrdersAsCSV() {
+
+var deleteAllOrders = async () => {
+    if (window.confirm("Are you sure you want to delete all orders?")) {
+        axios
+        .post("http://localhost:5000/removeOrders")
+        .then( response => {
+            console.log(response)
+        })
+        .catch(err => {
+            console.log("Delete All Orders error: ", err)
+        })
+    }
+}
+var getOrdersAsCSV = () => {
     axios
     .get("http://localhost:5000/ordersAsCSV")
     .then(response => {
@@ -12,22 +25,8 @@ function getOrdersAsCSV() {
         console.log("get orders as csv error: ", err)
     })
 }
-
 export default 
 function viewOrders(props) {
-
-    var deleteAllOrders = () => {
-        if (window.confirm("Are you sure you want to delete all orders?")) {
-            axios
-            .post("http://localhost:5000/removeOrders")
-            .then( response => {
-                console.log(response)
-            })
-            .catch(err => {
-                console.log("Delete All Orders error: ", err)
-            })
-        }
-    }
     if (props.orders && props.loggedIn)
     {
         // made the json into an array for easier iteration with map
