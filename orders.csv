@@ -1,3 +1,3 @@
-name,email,phoneNumber,order,total,timeOfOrder
-"Charlie","charliewingstrom@yahoo.com","1112223333",{"Turkey":1,"Easter":2},8,"9/11 13:00"
-"Charlie","charliewingstrom@yahoo.com","1112223333",{"Turkey":2,"Easter":2,"Ghostbusters":1,"Chocolate Chip":1},15,"9/11 13:34"
+Name,Email,Phone Number,Order Items,Total,Time of Order
+Charlie,charliewingstrom@yahoo.com,1112223333,Turkey: 1; Easter: 2,8,9/11 13:00
+Charlie,charliewingstrom@yahoo.com,1112223333,Turkey: 2; Easter: 2; Ghostbusters: 1; Chocolate Chip: 1,15,9/11 13:34
