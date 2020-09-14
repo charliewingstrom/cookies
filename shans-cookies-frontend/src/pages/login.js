@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import config from '../config'
 import axios from "axios";
 
 export default class Login extends Component {
@@ -25,7 +26,7 @@ export default class Login extends Component {
 
     axios
       .post(
-        "http://localhost:5000/sessions",
+        config.serverURL() + "/sessions",
         {
           user: {
             password: password

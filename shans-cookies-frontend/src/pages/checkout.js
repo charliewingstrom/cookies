@@ -3,6 +3,8 @@ import CartDisplay from '../cartDisplayTemplate'
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import config from '../config';
+
 export default
 class Checkout extends React.Component {
     constructor(props) {
@@ -17,7 +19,7 @@ class Checkout extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        
+        console.log(config.serverURL())
     }
 
   handleChange(event) {
@@ -28,10 +30,10 @@ class Checkout extends React.Component {
 
   handleSubmit(event) {
     const { name, email, phoneNumber, cart, total } = this.state;
-
+    
     axios
       .post(
-        "http://localhost:5000/checkout",
+        config.serverURL() + "/checkout",
         {
           order: {
             name: name,
@@ -64,7 +66,7 @@ class Checkout extends React.Component {
 
     axios
       .get(
-          "http://localhost:5000/convertOrdersToCSV"
+        config.serverURL() + "/convertOrdersToCSV"
       )
       .then(response => {
           console.log(response)

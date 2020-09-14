@@ -87,11 +87,10 @@ app.post('/removeCookie', urlencodedParser, (req, res) => {
     if (inventory[index].name !== req.body.cookieToRemove) {
       newInventory.push(inventory[index])
     }
-    fs.writeFile('cookies.json', JSON.stringify(newInventory), function(err) {
-      if (err) return console.log(err);
-    })
   }
-
+  fs.writeFile('cookies.json', JSON.stringify(newInventory), function(err) {
+    if (err) return console.log(err);
+  })
   res.sendStatus(200)
 })
 

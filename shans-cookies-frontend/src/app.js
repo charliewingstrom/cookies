@@ -25,6 +25,7 @@ import Error from './pages/error';
 import Login from './pages/login';
 import AddACookie from './pages/addACookie';
 import UserInfo from './userInfo';
+import config from './config';
 import ViewOrders from './pages/viewOrders';
 import axios from 'axios';
 
@@ -128,7 +129,7 @@ class App extends React.Component {
 	removeCookie(name) {
 		axios
 			.post(
-				"http://localhost:5000/removeCookie",
+				config.serverURL() + "/removeCookie",
 				{
 					cookieToRemove: name
 				},

@@ -1,12 +1,13 @@
 import React from 'react';
 import OrderListing from '../orderListing';
+import config from '../config'
 import axios from 'axios';
 
 
 var deleteAllOrders = async () => {
     if (window.confirm("Are you sure you want to delete all orders?")) {
         axios
-        .post("http://localhost:5000/removeOrders")
+        .post(config.serverURL() + "/removeOrders")
         .then( response => {
             console.log(response)
         })
@@ -41,7 +42,7 @@ function viewOrders(props) {
                     ))
                     }
                 </div>
-                <button onClick={() => window.open("http://localhost:5000/ordersAsCSV")}>Get orders as a Spreadsheet</button>
+                <button onClick={() => window.open(config.serverURL() + "/ordersAsCSV")}>Get orders as a Spreadsheet</button>
                 <button onClick={deleteAllOrders}>Delete all orders</button>
             </div>
         )

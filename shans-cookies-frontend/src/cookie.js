@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
-
+import config from './config';
 export default function Cookie(props) {
     var amount;
     var removeButton;
@@ -63,7 +63,7 @@ export default function Cookie(props) {
     }
     return (
         <div className={"cookieListing"} key={props.index}>
-            <img src={'http://localhost:5000/images/' + props.pictureSrc} alt="Cookie"></img>
+            <img src={config.serverURL() + '/images/' + props.pictureSrc} alt="Cookie"></img>
             <h2>{props.name}</h2>
             <h3><strong>${props.price}</strong> / Each</h3>
             {amount}
