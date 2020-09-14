@@ -1,7 +1,5 @@
 
 import sendOrderConfirmation from './emails.js';
-import readInventory from './readInventory.js';
-import readOrders from './readOrders.js';
 import * as fs from 'fs';
 
 function isEmpty(obj) {

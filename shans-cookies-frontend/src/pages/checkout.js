@@ -61,6 +61,17 @@ class Checkout extends React.Component {
       .catch(error => {
         console.log("Checkout error", error);
       });
+
+    axios
+      .get(
+          "http://localhost:5000/convertOrdersToCSV"
+      )
+      .then(response => {
+          console.log(response)
+      })
+      .catch(error => {
+          console.log("conversion from orders to CSV error", error)
+      })
     event.preventDefault();
   }
     render() {

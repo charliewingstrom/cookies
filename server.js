@@ -47,6 +47,7 @@ const upload = multer({
 checkout(app, urlencodedParser);
 readInventory(app)
 readOrders(app)
+convertOrdersToCSV(app)
 //----------------------------------------------------
 
 // adds a cookie to the inventory
@@ -95,8 +96,7 @@ app.post('/removeCookie', urlencodedParser, (req, res) => {
 })
 
 app.get('/ordersAsCSV', (req, res) => {
-  convertOrdersToCSV()
-  res.sendFile('/orders.csv', {root: '.'})
+  res.download('./orders.csv')
 })
 
 app.post('/removeOrders', urlencodedParser, (req, res) => {
@@ -104,3 +104,4 @@ app.post('/removeOrders', urlencodedParser, (req, res) => {
     if (err) return console.log(err);
   })
 })
+

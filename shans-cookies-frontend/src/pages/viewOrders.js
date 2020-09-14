@@ -15,16 +15,6 @@ var deleteAllOrders = async () => {
         })
     }
 }
-var getOrdersAsCSV = () => {
-    axios
-    .get("http://localhost:5000/ordersAsCSV")
-    .then(response => {
-        console.log(response)
-    })
-    .catch(err => {
-        console.log("get orders as csv error: ", err)
-    })
-}
 export default 
 function viewOrders(props) {
     if (props.orders && props.loggedIn)
@@ -51,7 +41,7 @@ function viewOrders(props) {
                     ))
                     }
                 </div>
-                <button onClick={getOrdersAsCSV}>Get orders as a Spreadsheet</button>
+                <button onClick={() => window.open("http://localhost:5000/ordersAsCSV")}>Get orders as a Spreadsheet</button>
                 <button onClick={deleteAllOrders}>Delete all orders</button>
             </div>
         )
