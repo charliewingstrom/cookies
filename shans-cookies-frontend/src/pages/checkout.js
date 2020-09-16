@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import config from '../config';
-
 export default
 class Checkout extends React.Component {
     constructor(props) {
@@ -19,63 +18,64 @@ class Checkout extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        console.log(config.serverURL())
     }
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
 
-  handleSubmit(event) {
-    const { name, email, phoneNumber, cart, total } = this.state;
-    
-    axios
-      .post(
-        config.serverURL() + "/checkout",
-        {
-          order: {
-            name: name,
-            email: email,
-            phoneNumber: phoneNumber, 
-            cart: cart,
-            total: total
-          }
-        },
-        { withCredentials: true }
-      )
-      .then(response => {
-        console.log(response)
-        if (response.status === 200) {
-            console.log("nice.. Order went through")
-            this.props.clearCart();
-        }
-        else if (response.status === 203) {
-            console.log("The cart was empty")
-            alert("Your order did not go through because your cart is empty.")
-        }
-        else if (response.status === 204) {
-            console.log("You tried ordering too many of one type")
-            alert("Your order did not go through because you tried to order too many cookies than are avaliable.")
-        }
-      })
-      .catch(error => {
-        console.log("Checkout error", error);
-      });
+	handleChange(event) {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
+	}
 
-    axios
-      .get(
-        config.serverURL() + "/convertOrdersToCSV"
-      )
-      .then(response => {
-          console.log(response)
-      })
-      .catch(error => {
-          console.log("conversion from orders to CSV error", error)
-      })
-    event.preventDefault();
-  }
+	handleSubmit(event) {
+		const { name, email, phoneNumber, cart, total } = this.state;
+		
+		axios
+		.post(
+			config.serverURL() + "/checkout",
+			{
+			order: {
+				name: name,
+				email: email,
+				phoneNumber: phoneNumber, 
+				cart: cart,
+				total: total
+			}
+			},
+			{ withCredentials: true }
+		)
+		.then(response => {
+			console.log(response)
+			if (response.status === 200) {
+				console.log("nice.. Order went through")
+				this.props.clearCart();
+				window.location = '/orderSuccess'
+			}
+			else if (response.status === 203) {
+				console.log("The cart was empty")
+				alert("Your order did not go through because your cart is empty.")
+			}
+			else if (response.status === 204) {
+				console.log("You tried ordering too many of one type")
+				alert("Your order did not go through because you tried to order too many cookies than are avaliable.")
+			}
+		})
+		.catch(error => {
+			console.log("Checkout error", error);
+		});
+
+		axios
+		.get(
+			config.serverURL() + "/convertOrdersToCSV"
+		)
+		.then(response => {
+			console.log(response)
+		})
+		.catch(error => {
+			console.log("conversion from orders to CSV error", error)
+		})
+		event.preventDefault();
+	}
     render() {
         if (this.props.inventory && this.props.cart) {
             // combining my two tables
