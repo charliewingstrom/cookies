@@ -1,20 +1,14 @@
 import React from 'react';
 import Cookie from '../cookie.js';
 import Button from "@material-ui/core/Button";
+
+
 export default 
 function StoreFront(props) {
     if (props.cookies)
     {
         var cookieArray = props.cookies
-        /*
-        getCookiesFromBackend = async () => {
-            const response = await fetch('/cookies_backend');
-            const body = await response.json();
-            if (response.status !== 200) {
-                throw Error(body.message)
-            }
-            return body;
-        }*/
+        
         return (
             <div className={'page'}>
                 <div className={'cartBar'}>

@@ -27,7 +27,7 @@ function viewOrders(props) {
         })
         return (
             <div className={"page aboutPage"}>
-                <div className={'page'}>
+                <div className={'orderInner'}>
                     {
                     orderArray.map((order, index) => (
                         <OrderListing
