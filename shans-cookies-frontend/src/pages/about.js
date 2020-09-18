@@ -1,13 +1,13 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-
 export default
 function about() {
     return (
         <div className={'page aboutPage'}>
-            <Typography variant="h6">
-                This is the about page
-            </Typography>
+            <h1>{`
+                You can add cookies to your cart on the homepage, then hit the checkout button to finalize your order.
+                After you place your order you should recieve an email with more information.
+                For more information, or to place a custom order, please contact : someemail@email.com
+            `}</h1>
         </div>
     )
 }
