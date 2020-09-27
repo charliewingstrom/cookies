@@ -59,21 +59,10 @@ class Checkout extends React.Component {
 				console.log("You tried ordering too many of one type")
 				alert("Your order did not go through because you tried to order too many cookies than are avaliable.")
 			}
-		})
+        })
 		.catch(error => {
 			console.log("Checkout error", error);
 		});
-
-		axios
-		.get(
-			config.serverURL() + "/convertOrdersToCSV"
-		)
-		.then(response => {
-			console.log(response)
-		})
-		.catch(error => {
-			console.log("conversion from orders to CSV error", error)
-		})
 		event.preventDefault();
 	}
     render() {

@@ -56,7 +56,7 @@ app.post('/checkout', urlencodedParser, (req, res) => {
     fs.writeFile('orders.json', JSON.stringify(orderList), function(err) {
       if (err) return console.log(err);
     })
-    //sendOrderConfirmation(order);
+    sendOrderConfirmation(order);
     var newInventory = JSON.stringify(inventory);
     fs.writeFile('cookies.json', newInventory, function(err) {
       if (err) return console.log(err);
