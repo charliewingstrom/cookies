@@ -18,6 +18,16 @@ var deleteAllOrders = async () => {
 }
 export default 
 function viewOrders(props) {
+    axios
+		.get(
+			config.serverURL() + "/convertOrdersToCSV"
+		)
+		.then(response => {
+			console.log(response)
+		})
+		.catch(error => {
+			console.log("conversion from orders to CSV error", error)
+		})
     if (props.orders && props.loggedIn)
     {
         // made the json into an array for easier iteration with map
