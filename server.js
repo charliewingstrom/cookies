@@ -50,6 +50,9 @@ readOrders(app)
 convertOrdersToCSV(app)
 //----------------------------------------------------
 
+app.get("/", (req, res) => {
+  res.send("Home Page")
+})
 // adds a cookie to the inventory
 app.post('/addACookie', upload.single('photo'), urlencodedParser, (req, res) => {
   let rawdata = fs.readFileSync('cookies.json');
